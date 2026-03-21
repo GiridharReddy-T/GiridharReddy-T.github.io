@@ -74,26 +74,39 @@
       ],
       "tags": ["Kafka","Spark Streaming","Delta Lake","Databricks","Unity Catalog","Medallion","CDC","Python"]
     }
+
+    {
+      "title": "ETL-Toll-Data-Pipeline-using-Apache-Airflow",
+      "type": "Personal Project",
+      "icon": "🚦",
+      "github_repo": "",
+      "description": "A complete end-to-end ETL pipeline that ingests raw toll transaction data from multiple file formats (CSV, TSV & Fixed Width), processes and transforms it using Airflow PythonOperators, and loads the final curated dataset into a PostgreSQL fact table.",
+      "bullets": [
+        "Designed and implemented an end-to-end ETL pipeline using Apache Airflow, orchestrating data ingestion, transformation, and loading workflows with scheduled DAGs.",
+        "Built automated data pipelines to process toll data from multiple sources, ensuring data consistency, reliability, and fault tolerance.",
+        "Applied data transformation techniques using Python to clean, structure, and prepare data for downstream analytics.",
+        "Implemented workflow monitoring, logging, and retry mechanisms in Airflow to improve pipeline robustness and observability."
+    }
   ],
 
   "skills": {
     "Core Platform":    ["Databricks","Delta Lake","PySpark","Spark SQL","Unity Catalog","Notebooks"],
     "Cloud — Azure":    ["Azure Data Factory","ADLS Gen2","Azure Databricks","Microsoft Fabric"],
     "Cloud — GCP":      ["Google Dataproc","BigQuery","GCS","Snowflake"],
-    "Streaming & Orch": ["Apache Kafka","Apache Airflow","Kafka Streams","Automic","Spark Structured Streaming"],
-    "Languages & DB":   ["Python","SQL","Hive","Hadoop","MySQL","PostgreSQL","Apache Hudi"],
+    "Streaming & Orch": ["Apache Kafka","Apache Airflow","Kafka Streams","Spark Structured Streaming"],
+    "Languages & DB":   ["Python","SQL","Hive","Hadoop","MySQL","PostgreSQL"],
     "DevOps & Tools":   ["Git","Jira","CI/CD","OLAP","OLTP"]
   },
 
   "core_skills": ["PySpark","Databricks","Delta Lake","Azure Data Factory","Google Dataproc","BigQuery","Apache Kafka","Apache Airflow"],
 
   "certifications": [
-    { "title": "IBM Data Engineer Professional Certificate",                    "issuer": "IBM / Coursera",  "icon": "🎓", "year": "2024" },
-    { "title": "Microsoft Certified: Fabric Data Engineer Associate",           "issuer": "Microsoft",       "icon": "🪟", "year": "2024" },
-    { "title": "Academy Accreditation — Databricks Fundamentals",              "issuer": "Databricks",      "icon": "🧱", "year": "2024" },
-    { "title": "Astronomer Certification for Apache Airflow Fundamentals",      "issuer": "Astronomer",      "icon": "🌬️", "year": "2023" },
-    { "title": "Databases and SQL for Data Science with Python",               "issuer": "IBM / Coursera",  "icon": "🗄️", "year": "2023" },
-    { "title": "Introduction to Relational Databases (RDBMS)",                 "issuer": "IBM / Coursera",  "icon": "📐", "year": "2023" }
+    { "title": "IBM Data Engineer Professional Certificate",                    "issuer": "IBM / Coursera",  "icon": "🎓", "certified_year": "2025", "expiry_year": null },
+    { "title": "Microsoft Certified: Fabric Data Engineer Associate",           "issuer": "Microsoft",       "icon": "🪟", "certified_year": "2026", "expiry_year": "2027" },
+    { "title": "Academy Accreditation — Databricks Fundamentals",              "issuer": "Databricks",      "icon": "🧱", "certified_year": "2024", "expiry_year": null },
+    { "title": "Astronomer Certification for Apache Airflow Fundamentals",      "issuer": "Astronomer",      "icon": "🌬️", "certified_year": "2024", "expiry_year": null },
+    { "title": "Databases and SQL for Data Science with Python",               "issuer": "IBM / Coursera",  "icon": "🗄️", "certified_year": "2024", "expiry_year": null },
+    { "title": "Introduction to Relational Databases (RDBMS)",                 "issuer": "IBM / Coursera",  "icon": "📐", "certified_year": "2025", "expiry_year": null }
   ],
 
   "education": [
@@ -101,7 +114,7 @@
       "degree": "Master's Degree",
       "field": "Data Science",
       "school": "Vellore Institute of Technology (VIT)",
-      "period": "Dec 2025 – Jan 2028",
+      "period": "Dec 2025 – Present",
       "status": "In Progress",
       "location": "Vellore, India"
     },
