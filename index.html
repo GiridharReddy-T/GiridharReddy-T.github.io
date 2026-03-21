@@ -341,7 +341,7 @@ nav.scrolled {
   overflow: hidden;
 }
 .exp-logo img {
-  width: 70%; height: 70%;
+  width: 80%; height: 80%;
   object-fit: cover;
   display: block;
 }
@@ -747,7 +747,7 @@ footer a:hover { opacity: .75; }
       <!-- FIX 5: corrected filename "wakamrt" → "walmart_logo" -->
       <div class="exp-card reveal">
         <div class="exp-logo walmart">
-          <img src="images/walmart_logo-removebg-preview.png" alt="Walmart Logo"/>
+          <img src="images/wakmart_logo-removebg-preview.png" alt="Walmart Logo"/>
         </div>
         <div>
           <div class="exp-header">
@@ -775,7 +775,7 @@ footer a:hover { opacity: .75; }
         </div>
       </div>
 
-      <!-- FIX 6: path changed from "images/WW-removebg-preview.png" → "WW-removebg-preview.png" -->
+    
       <div class="exp-card reveal" style="transition-delay:.1s">
         <div class="exp-logo ww">
           <img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/>
@@ -906,7 +906,7 @@ footer a:hover { opacity: .75; }
       <div class="cert-card reveal">
         <div class="cert-name">🎓 IBM Data Engineer Professional Certificate</div>
         <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2024 · No Expiry</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
         <div class="cert-extra"><strong>Skills:</strong> Python, SQL, PySpark, ETL, NoSQL<br/><strong>Details:</strong> End-to-end data engineering with IBM tools and cloud platforms.</div>
       </div>
 
@@ -934,14 +934,14 @@ footer a:hover { opacity: .75; }
       <div class="cert-card reveal" style="transition-delay:.07s">
         <div class="cert-name">🗄️ Databases and SQL for Data Science with Python</div>
         <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2024 · No Expiry</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
         <div class="cert-extra"><strong>Skills:</strong> SQL, Python, RDBMS, Data Analysis<br/><strong>Details:</strong> Advanced SQL and database design for data science use cases.</div>
       </div>
 
       <div class="cert-card reveal" style="transition-delay:.14s">
         <div class="cert-name">📐 Introduction to Relational Databases (RDBMS)</div>
         <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2024 · No Expiry</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
         <div class="cert-extra"><strong>Skills:</strong> RDBMS, PostgreSQL, MySQL, Schema Design<br/><strong>Details:</strong> Foundational relational database concepts and SQL.</div>
       </div>
 
@@ -1033,7 +1033,7 @@ footer a:hover { opacity: .75; }
 
 <script>
 /* ══ TYPING ANIMATION ══ */
-const roles = ['Data Engineer','PySpark Developer','Databricks Specialist','ETL/ELT Builder','Cloud Data Engineer'];
+const roles = ['Data Engineer','Data Scientist','PySpark Developer','Databricks Specialist','ETL/ELT Builder','Cloud Data Engineer'];
 let ri = 0, ci = 0, del = false;
 const typedEl = document.getElementById('typed');
 function type() {
@@ -1067,8 +1067,8 @@ const obs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 /* ══ SKILLS MARQUEE ══ */
-const core = ['PySpark','Databricks','Delta Lake','Azure Data Factory','Google Dataproc','BigQuery','Apache Kafka','Apache Airflow'];
-const all  = ['PySpark','Databricks','Delta Lake','GCP','Azure','BigQuery','Apache Kafka','Apache Airflow','Spark SQL','Unity Catalog','ADLS Gen2','Azure Databricks','Google Dataproc','GCS','Snowflake','Spark Streaming','Automic','Python','SQL','Hive','Hadoop','MySQL','PostgreSQL','Apache Hudi','Git','Jira','Docker','CI/CD','OLAP','OLTP','Microsoft Fabric'];
+const core = ['PySpark','Python','MySQL','Delta Lake','Azure Data Factory','Google Dataproc','BigQuery','Apache Kafka','Azure Databricks'];
+const all  = ['PySpark','Databricks','Delta Lake','GCP','CDC','BigQuery','Apache Kafka','Apache Airflow','Spark SQL','Unity Catalog','ADLS Gen2','Azure Databricks','Google Dataproc','GCS','Snowflake','Spark Streaming','Python','SQL','MySQL','PostgreSQL','Git','Jira','CI/CD','OLAP','OLTP','Microsoft Fabric'];
 const half = Math.ceil(all.length / 2);
 const chip = s => `<span class="schip${core.includes(s) ? ' hi' : ''}"><span class="sdot"></span>${s}</span>`;
 const r1 = all.slice(0, half), r2 = all.slice(half);
