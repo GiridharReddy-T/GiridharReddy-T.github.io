@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "name": "Giridhar Reddy Tatiparthi",
+    "shortName": "Giridhar Reddy",
+    "initials": "GR",
+    "title": "Data Engineer",
+    "tagline": "Building ETL Pipelines at Scale",
+    "location": "Prakasam, Andhra Pradesh, India",
+    "email": "Giridhar.scsvmv@gmail.com",
+    "phone": "+91 6301691663",
+    "linkedin": "https://www.linkedin.com/in/giridhar-reddy-tatiparthi-272b94244/",
+    "github_username": "GiridharReddy-T",
+    "github_url": "https://github.com/GiridharReddy-T/",
+    "status": "Open to Data Engineer roles",
+    "summary": "Results-driven Data Engineer with 1+ year of production experience building scalable Databricks and Spark-based data pipelines on Azure and GCP. Expertise in Delta Lake, data modernization, ETL/ELT design, and data-driven decision-making.",
+    "hero_desc": "Data Engineer · Ex-Walmart Global Tech · Building ETL/ELT pipelines at scale with PySpark, Databricks, Delta Lake, Azure & GCP. Processed 10M+ daily retail transactions in production."
+  },
+
+  "stats": [
+    { "value": "10M+", "label": "Daily Transactions", "sub": "Processed in production · Walmart" },
+    { "value": "70%",  "label": "Scan Reduction",     "sub": "Via incremental ingestion design" },
+    { "value": "4h→90m","label": "Pipeline Runtime",  "sub": "Avg batch processing improvement" },
+    { "value": "99%+", "label": "SLA Adherence",      "sub": "Across high-volume daily cycles" },
+    { "value": "5",    "label": "Certifications",     "sub": "Databricks · Microsoft · Airflow · IBM" }
+  ],
+
+  "experience": [
+    {
+      "company": "Walmart Global Tech India",
+      "badge": "Featured",
+      "role": "Data Engineer",
+      "period": "Apr 2024 – Jun 2025",
+      "duration": "1 yr 3 mos",
+      "location": "Chennai, Tamil Nadu, India",
+      "tags": ["PySpark","Databricks","Delta Lake","GCP","Azure","BigQuery","ADF","Automic"],
+      "bullets": [
+        "Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks processing daily store and eCommerce sales transaction data from upstream SAS systems landed in GCS — enabling downstream consumption through <strong>Delta Lake</strong> and supporting finance reporting and reconciliation workflows.",
+        "Designed <strong>partition-based incremental ingestion</strong> using batch_id and batch_date driven workflows with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong>, resolving processing bottlenecks, and significantly enhancing query performance for downstream consumers.",
+        "Designed and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption), ensuring structured, analytics-ready datasets aligned with downstream reporting requirements.",
+        "Facilitated <strong>hybrid cloud data architecture (GCP + Azure)</strong>, promoting downstream consumption through Azure Data Factory (ADF) and Azure Databricks, operating within Automic for SLA-driven batch orchestration and touch file-based data arrival validation.",
+        "Proactively raised and tracked <strong>Jira tickets</strong> for pipeline failures, job execution errors, data quality issues, schema changes, and SLA breaches — coordinating resolution across upstream SAS teams and downstream reporting stakeholders.",
+        "Conducted <strong>data validation and reconciliation</strong> including record count verification, data mismatch analysis, and root cause investigation, ensuring data accuracy across finance-critical reporting pipelines.",
+        "Monitored end-to-end production pipelines supporting the <strong>BigQuery-based consumption layer</strong>, triaged and resolved job failures, and maintained consistent <strong>99%+ SLA adherence</strong> across high-volume daily batch processing cycles."
+      ]
+    },
+    {
+      "company": "Wenger & Watson Private Limited",
+      "badge": "",
+      "role": "Data Scientist",
+      "period": "Nov 2023 – Jan 2024",
+      "duration": "3 mos",
+      "location": "Bengaluru, Karnataka, India",
+      "tags": ["Hive","BigQuery","Apache Hudi","Spark","Kafka"],
+      "bullets": [
+        "Facilitated <strong>end-to-end ETL workflows in Hive and BigQuery</strong> for reporting and analytics teams, streamlining data delivery pipelines.",
+        "Managed <strong>incremental and historical datasets using Apache Hudi</strong>, ensuring accuracy and preventing dataset duplication across analytics pipelines.",
+        "Troubleshot <strong>Spark jobs and Kafka stream failures</strong> to minimize downtime and maintain reliability for critical analytics workflows."
+      ]
+    }
+  ],
+
+  "projects": [
+    {
+      "title": "Real-Time Health Analytics Lakehouse Platform",
+      "type": "Personal Project",
+      "icon": "⚡",
+      "github_repo": "",
+      "description": "A fully end-to-end Databricks Lakehouse built from scratch to process wearable IoT health data at scale — built with Kafka + Spark Structured Streaming, Medallion architecture, and Unity Catalog governance.",
+      "bullets": [
+        "Built a real-time Databricks Lakehouse using <strong>Delta Lake and Medallion architecture</strong> to process wearable IoT health data (BPM, workout, GYM events) at scale.",
+        "Developed <strong>Kafka + Spark Structured Streaming pipelines with CDC handling</strong> for user profiles and high-volume sensor event streams.",
+        "Delivered business-ready <strong>Gold datasets</strong> for daily workout heart-rate analytics and gym utilization reporting, with governance via <strong>Unity Catalog</strong>.",
+        "End-to-end ownership — from raw ingestion through to analytics-ready consumption layer — replicating production Lakehouse patterns."
+      ],
+      "tags": ["Kafka","Spark Streaming","Delta Lake","Databricks","Unity Catalog","Medallion","CDC","Python"]
+    }
+  ],
+
+  "skills": {
+    "Core Platform":    ["Databricks","Delta Lake","PySpark","Spark SQL","Unity Catalog","Notebooks"],
+    "Cloud — Azure":    ["Azure Data Factory","ADLS Gen2","Azure Databricks","Microsoft Fabric"],
+    "Cloud — GCP":      ["Google Dataproc","BigQuery","GCS","Snowflake"],
+    "Streaming & Orch": ["Apache Kafka","Apache Airflow","Kafka Streams","Automic","Spark Structured Streaming"],
+    "Languages & DB":   ["Python","SQL","Hive","Hadoop","MySQL","PostgreSQL","Apache Hudi"],
+    "DevOps & Tools":   ["Git","Jira","CI/CD","OLAP","OLTP"]
+  },
+
+  "core_skills": ["PySpark","Databricks","Delta Lake","Azure Data Factory","Google Dataproc","BigQuery","Apache Kafka","Apache Airflow"],
+
+  "certifications": [
+    { "title": "IBM Data Engineer Professional Certificate",                    "issuer": "IBM / Coursera",  "icon": "🎓", "year": "2024" },
+    { "title": "Microsoft Certified: Fabric Data Engineer Associate",           "issuer": "Microsoft",       "icon": "🪟", "year": "2024" },
+    { "title": "Academy Accreditation — Databricks Fundamentals",              "issuer": "Databricks",      "icon": "🧱", "year": "2024" },
+    { "title": "Astronomer Certification for Apache Airflow Fundamentals",      "issuer": "Astronomer",      "icon": "🌬️", "year": "2023" },
+    { "title": "Databases and SQL for Data Science with Python",               "issuer": "IBM / Coursera",  "icon": "🗄️", "year": "2023" },
+    { "title": "Introduction to Relational Databases (RDBMS)",                 "issuer": "IBM / Coursera",  "icon": "📐", "year": "2023" }
+  ],
+
+  "education": [
+    {
+      "degree": "Master's Degree",
+      "field": "Data Science",
+      "school": "Vellore Institute of Technology (VIT)",
+      "period": "Dec 2025 – Jan 2028",
+      "status": "In Progress",
+      "location": "Vellore, India"
+    },
+    {
+      "degree": "Bachelor of Technology (B.Tech)",
+      "field": "Computer Science & Engineering",
+      "school": "Sri Chandrasekharendra Saraswathi Vishwa Mahavidyalaya (SCSVMV)",
+      "period": "Aug 2019 – Jun 2023",
+      "status": "Completed",
+      "location": "Kanchipuram, India"
+    }
+  ]
+}
