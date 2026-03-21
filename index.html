@@ -49,7 +49,7 @@ body::before {
   z-index: 9999;
   background: radial-gradient(
     circle 300px at var(--x, 50%) var(--y, 50%),
-    rgba(139,92,246,0.10),
+    rgba(139,92,246,0.05),
     transparent 60%
   );
 }
@@ -323,15 +323,29 @@ nav.scrolled {
   gap: 2rem; align-items: start;
   transition: border-color .3s, transform .3s, box-shadow .3s;
   position: relative; overflow: hidden;
+  cursor: default;
 }
 .exp-card::before {
   content: '';
   position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
   background: var(--grad); opacity: 0; transition: opacity .3s;
 }
-.exp-card:hover { border-color: rgba(139,92,246,.4); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,.3); }
+.exp-card:hover { border-color: rgba(139,92,246,.4); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,.3); align-items: start; padding-top: 2rem; padding-bottom: 2rem;}
 .exp-card:hover::before { opacity: 1; }
 
+/* Hidden details — collapsed by default */
+.exp-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height .45s ease, opacity .35s ease .05s, transform .35s ease .05s;
+}
+.exp-card:hover .exp-details {
+  max-height: 600px;
+  opacity: 1;
+  transform: translateY(0);
+}
 /* exp-logo — app-icon style matching screenshot */
 .exp-logo {
   width: 64px; height: 64px;
@@ -744,7 +758,6 @@ footer a:hover { opacity: .75; }
     </div>
     <div class="exp-cards">
 
-      <!-- FIX 5: corrected filename "wakamrt" → "walmart_logo" -->
       <div class="exp-card reveal">
         <div class="exp-logo walmart">
           <img src="images/wakamrt_logo-removebg-preview.png" alt="Walmart Logo"/>
@@ -760,22 +773,23 @@ footer a:hover { opacity: .75; }
               <span class="exp-loc">📍 Chennai, India</span>
             </div>
           </div>
-          <ul class="exp-bullets">
-            <li>Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks, processing 10M+ daily store and eCommerce sales transactions through <strong>Delta Lake</strong> for finance reporting and reconciliation.</li>
-            <li>Designed <strong>partition-based incremental ingestion</strong> with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong> and reducing pipeline runtime from 4 hours to 90 minutes.</li>
-            <li>Built and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption) ensuring analytics-ready datasets for downstream BI teams.</li>
-            <li>Facilitated <strong>hybrid cloud architecture (GCP + Azure)</strong> with Azure Data Factory and Azure Databricks, orchestrated via Automic for SLA-driven batch scheduling.</li>
-            <li>Maintained <strong>99%+ SLA adherence</strong> across high-volume daily cycles, proactively tracking pipeline failures and data quality issues via Jira.</li>
-          </ul>
-          <div class="exp-tags" style="margin-top:1rem">
-            <span class="etag">PySpark</span><span class="etag">Databricks</span><span class="etag">Delta Lake</span>
-            <span class="etag">GCP</span><span class="etag">Azure</span><span class="etag">BigQuery</span>
-            <span class="etag grey">ADF</span><span class="etag grey">Automic</span><span class="etag grey">Jira</span>
+          <div class="exp-details">
+            <ul class="exp-bullets">
+              <li>Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks, processing 10M+ daily store and eCommerce sales transactions through <strong>Delta Lake</strong> for finance reporting and reconciliation.</li>
+              <li>Designed <strong>partition-based incremental ingestion</strong> with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong> and reducing pipeline runtime from 4 hours to 90 minutes.</li>
+              <li>Built and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption) ensuring analytics-ready datasets for downstream BI teams.</li>
+              <li>Facilitated <strong>hybrid cloud architecture (GCP + Azure)</strong> with Azure Data Factory and Azure Databricks, orchestrated via Automic for SLA-driven batch scheduling.</li>
+              <li>Maintained <strong>99%+ SLA adherence</strong> across high-volume daily cycles, proactively tracking pipeline failures and data quality issues via Jira.</li>
+            </ul>
+            <div class="exp-tags" style="margin-top:1rem">
+              <span class="etag">PySpark</span><span class="etag">Databricks</span><span class="etag">Delta Lake</span>
+              <span class="etag">GCP</span><span class="etag">Azure</span><span class="etag">BigQuery</span>
+              <span class="etag grey">ADF</span><span class="etag grey">Automic</span><span class="etag grey">Jira</span>
+            </div>
           </div>
         </div>
       </div>
 
-    
       <div class="exp-card reveal" style="transition-delay:.1s">
         <div class="exp-logo ww">
           <img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/>
@@ -791,14 +805,16 @@ footer a:hover { opacity: .75; }
               <span class="exp-loc">📍 Bengaluru, India</span>
             </div>
           </div>
-          <ul class="exp-bullets">
-            <li>Facilitated <strong>end-to-end ETL workflows in Hive and BigQuery</strong> for reporting and analytics teams, streamlining data delivery pipelines.</li>
-            <li>Managed <strong>incremental and historical datasets using Apache Hudi</strong>, ensuring accuracy and preventing dataset duplication across analytics pipelines.</li>
-            <li>Troubleshot <strong>Spark jobs and Kafka stream failures</strong> to minimize downtime and maintain reliability for critical analytics workflows.</li>
-          </ul>
-          <div class="exp-tags" style="margin-top:1rem">
-            <span class="etag grey">Hive</span><span class="etag grey">BigQuery</span><span class="etag grey">Apache Hudi</span>
-            <span class="etag grey">Spark</span><span class="etag grey">Kafka</span>
+          <div class="exp-details">
+            <ul class="exp-bullets">
+              <li>Facilitated <strong>end-to-end ETL workflows in Hive and BigQuery</strong> for reporting and analytics teams, streamlining data delivery pipelines.</li>
+              <li>Managed <strong>incremental and historical datasets using Apache Hudi</strong>, ensuring accuracy and preventing dataset duplication across analytics pipelines.</li>
+              <li>Troubleshot <strong>Spark jobs and Kafka stream failures</strong> to minimize downtime and maintain reliability for critical analytics workflows.</li>
+            </ul>
+            <div class="exp-tags" style="margin-top:1rem">
+              <span class="etag grey">Hive</span><span class="etag grey">BigQuery</span><span class="etag grey">Apache Hudi</span>
+              <span class="etag grey">Spark</span><span class="etag grey">Kafka</span>
+            </div>
           </div>
         </div>
       </div>
