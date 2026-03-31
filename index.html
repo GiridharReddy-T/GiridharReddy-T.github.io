@@ -1023,18 +1023,15 @@ footer a:hover { opacity: .75; }
         </div>
       </div>
       <div class="reveal" style="transition-delay:.1s">
-        <div class="cform">
-          <div class="cf-row">
-            <div class="cf"><label>Name</label><input type="text" placeholder="Your name"/></div>
-            <div class="cf"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
-          </div>
-          <div class="cf"><label>Subject</label><input type="text" placeholder="Role, collaboration, project..."/></div>
-          <div class="cf"><label>Message</label><textarea rows="5" placeholder="Tell me about the opportunity..."></textarea></div>
-          <button class="cf-send">Send Message →</button>
-        </div>
-      </div>
-    </div>
+        <form class="cform" action="https://formspree.io/f/xpqorykw" method="POST">
+  <div class="cf-row">
+    <div class="cf"><label>Name</label><input type="text" name="name" placeholder="Your name" required/></div>
+    <div class="cf"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required/></div>
   </div>
+  <div class="cf"><label>Subject</label><input type="text" name="subject" placeholder="Role, collaboration, project..." required/></div>
+  <div class="cf"><label>Message</label><textarea name="message" rows="5" placeholder="Tell me about the opportunity..." required></textarea></div>
+  <button type="submit" class="cf-send">Send Message →</button>
+</form>
 </section>
 
 <!-- ══ FOOTER ══ -->
