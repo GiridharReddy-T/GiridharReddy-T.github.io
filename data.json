@@ -34,12 +34,12 @@
       "location": "Chennai, Tamil Nadu, India",
       "tags": ["PySpark","Databricks","Delta Lake","GCP","Azure","BigQuery","ADF","Automic"],
       "bullets": [
-        "Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks processing daily store and eCommerce sales transaction data from upstream SAS systems landed in GCS — enabling downstream consumption through <strong>Delta Lake</strong> and supporting finance reporting and reconciliation workflows.",
-        "Designed <strong>partition-based incremental ingestion</strong> using batch_id and batch_date driven workflows with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong>, resolving processing bottlenecks, and significantly enhancing query performance for downstream consumers.",
-        "Designed and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption), ensuring structured, analytics-ready datasets aligned with downstream reporting requirements.",
-        "Facilitated <strong>hybrid cloud data architecture (GCP + Azure)</strong>, promoting downstream consumption through Azure Data Factory (ADF) and Azure Databricks, operating within Automic for SLA-driven batch orchestration and touch file-based data arrival validation.",
-        "Proactively raised and tracked <strong>Jira tickets</strong> for pipeline failures, job execution errors, data quality issues, schema changes, and SLA breaches — coordinating resolution across upstream SAS teams and downstream reporting stakeholders.",
-        "Conducted <strong>data validation and reconciliation</strong> including record count verification, data mismatch analysis, and root cause investigation, ensuring data accuracy across finance-critical reporting pipelines.",
+        "Designed and developed ADF pipelines from scratch using triggers, data flows, and connectors, integrating with Databricks for processing over <strong>10 million daily records.</strong>",
+        "Implemented partition-based incremental data ingestion using <strong>batch_id and batch_date</strong> driven logic with a rolling 7-day timestamp window, which eliminated full dataset scans and reduced pipeline runtime from <strong>4 hours to 90 minutes (a 70% improvement).</strong>",
+        "Designed a layered Medallion data architecture <strong>(Raw → Curated → Enriched → Consumption)</strong> to ensure high-quality, analytics-ready datasets with consistent schema enforcement and data quality controls.",
+        "Orchestrated hybrid cloud data pipelines <strong>(Azure + GCP)</strong> using ADF and Automic for batch scheduling, validating data arrival through touch files, while maintaining over <strong>99% SLA adherence.</strong>",
+        "Optimized Spark performance using <strong>partitioning, caching, broadcast joins, and query tuning for large-scale distributed datasets</strong>. I monitored production pipelines and resolved failures through root cause analysis. I wrote efficient SQL queries that included joins, aggregations, and window functions for large-scale data transformations and reporting.",
+        "Worked closely with upstream SAS teams and downstream BI stakeholders, tracking pipeline failures, schema changes, and data quality issues in Jira while following CI/CD deployment practices with Git.",
         "Monitored end-to-end production pipelines supporting the <strong>BigQuery-based consumption layer</strong>, triaged and resolved job failures, and maintained consistent <strong>99%+ SLA adherence</strong> across high-volume daily batch processing cycles."
       ]
     },
