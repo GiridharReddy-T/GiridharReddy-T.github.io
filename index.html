@@ -704,7 +704,7 @@ footer a:hover { opacity: .75; }
       LinkedIn
     </a>
   </div>
-  <div class="hero-stats">
+  <div class="hero-stats" id="hero-stats">
     <div class="hstat"><div class="hstat-val">10M+</div><div class="hstat-lbl">Daily transactions<br/>in production</div></div>
     <div class="hstat"><div class="hstat-val">70%</div><div class="hstat-lbl">Scan reduction via<br/>incremental ingestion</div></div>
     <div class="hstat"><div class="hstat-val">4h→90m</div><div class="hstat-lbl">Pipeline runtime<br/>improvement</div></div>
@@ -728,7 +728,7 @@ footer a:hover { opacity: .75; }
     <a href="mailto:Giridhar.scsvmv@gmail.com" class="btn-grad" style="width:fit-content">Get In Touch ↗</a>
   </div>
   <div class="about-right reveal" style="transition-delay:.1s">
-    <div class="about-stat-grid">
+    <div class="about-stat-grid" id="about-stats">
       <div class="astat"><div class="astat-val">10M+</div><div class="astat-lbl">Daily retail transactions processed</div></div>
       <div class="astat"><div class="astat-val">70%</div><div class="astat-lbl">Scan reduction achieved</div></div>
       <div class="astat"><div class="astat-val">99%+</div><div class="astat-lbl">SLA adherence maintained</div></div>
@@ -757,7 +757,7 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Work Experience</div>
       <h2 class="sec-title">Where I've <span class="grad">Worked.</span></h2>
     </div>
-    <div class="exp-cards">
+    <div class="exp-cards" id="exp-cards">
 
       <div class="exp-card reveal">
         <div class="exp-logo walmart">
@@ -838,7 +838,7 @@ footer a:hover { opacity: .75; }
       <div class="mq-track"><div class="mq-inner" id="mq1"></div></div>
       <div class="mq-track" style="margin-top:.5rem"><div class="mq-inner rev" id="mq2"></div></div>
     </div>
-    <div class="skills-grid reveal">
+    <div class="skills-grid reveal" id="skills-grid">
       <div class="sk-block"><div class="sk-cat">Core Platform</div><div class="sk-tags"><span class="stag hi">Databricks</span><span class="stag hi">Delta Lake</span><span class="stag hi">PySpark</span><span class="stag">Spark SQL</span><span class="stag">Unity Catalog</span></div></div>
       <div class="sk-block"><div class="sk-cat">Cloud — Azure</div><div class="sk-tags"><span class="stag hi">Azure Data Factory</span><span class="stag">ADLS Gen2</span><span class="stag">Azure Databricks</span><span class="stag">Microsoft Fabric</span></div></div>
       <div class="sk-block"><div class="sk-cat">Cloud — GCP</div><div class="sk-tags"><span class="stag hi">Google Dataproc</span><span class="stag hi">BigQuery</span><span class="stag">GCS</span><span class="stag">Snowflake</span></div></div>
@@ -918,7 +918,7 @@ footer a:hover { opacity: .75; }
       <h2 class="sec-title">Certified <span class="grad">Expertise.</span></h2>
     </div>
     <!-- FIX 3: all cert cards have clean, balanced structure — no orphaned </div> tags -->
-    <div class="certs-grid">
+    <div class="certs-grid" id="certs-grid">
 
       <div class="cert-card reveal">
         <div class="cert-name">🎓 IBM Data Engineer Professional Certificate</div>
@@ -976,7 +976,7 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Education</div>
       <h2 class="sec-title">Academic <span class="grad">Background.</span></h2>
     </div>
-    <div class="edu-grid">
+    <div class="edu-grid" id="edu-grid">
       <div class="edu-card reveal">
         <div class="edu-year">Dec 2025 – Jan 2028</div>
         <div class="edu-degree">Master's Degree</div>
@@ -1046,6 +1046,110 @@ footer a:hover { opacity: .75; }
 </footer>
 
 <script>
+/* ══ LOAD DATA.JSON & RENDER ALL SECTIONS ══ */
+async function loadData() {
+  let d;
+  try {
+    const res = await fetch('data.json?v=' + Date.now());
+    d = await res.json();
+  } catch(e) {
+    console.error('Failed to load data.json:', e);
+    return;
+  }
+
+  const m = d.meta;
+
+  /* ── Hero stats ── */
+  if (d.stats && document.getElementById('hero-stats')) {
+    document.getElementById('hero-stats').innerHTML = d.stats.map(s =>
+      `<div class="hstat"><div class="hstat-val">${s.value}</div><div class="hstat-lbl">${s.label}<br/><span style="font-size:.7rem;opacity:.7">${s.sub}</span></div></div>`
+    ).join('');
+  }
+
+  /* ── About stats ── */
+  if (d.stats && document.getElementById('about-stats')) {
+    document.getElementById('about-stats').innerHTML = d.stats.map(s =>
+      `<div class="astat"><div class="astat-val">${s.value}</div><div class="astat-lbl">${s.sub}</div></div>`
+    ).join('');
+  }
+
+  /* ── Experience cards ── */
+  if (d.experience && document.getElementById('exp-cards')) {
+    const expLogos = {
+      'Walmart Global Tech India': `<div class="exp-logo walmart"><img src="images/wakamrt_logo-removebg-preview.png" alt="Walmart Logo"/></div>`,
+      'Wenger & Watson Private Limited': `<div class="exp-logo ww"><img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/></div>`
+    };
+    document.getElementById('exp-cards').innerHTML = d.experience.map((e, i) => {
+      const logo = expLogos[e.company] || `<div class="exp-logo"><div style="font-size:1.4rem;font-weight:700;color:var(--purple2)">${e.company[0]}</div></div>`;
+      const badge = e.badge ? ` <span class="exp-badge">${e.badge}</span>` : '';
+      const bullets = e.bullets.map(b => `<li>${b}</li>`).join('');
+      const tags = e.tags.map((t,ti) => `<span class="etag${ti>3?' grey':''}">${t}</span>`).join('');
+      return `
+      <div class="exp-card reveal" style="transition-delay:${i*0.1}s">
+        ${logo}
+        <div>
+          <div class="exp-header">
+            <div>
+              <div class="exp-co">${e.company}${badge}</div>
+              <div class="exp-role">${e.role}</div>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-period">${e.period}</span>
+              <span class="exp-loc">📍 ${e.location}</span>
+            </div>
+          </div>
+          <div class="exp-details">
+            <ul class="exp-bullets">${bullets}</ul>
+            <div class="exp-tags" style="margin-top:1rem">${tags}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ── Skills grid ── */
+  if (d.skills && document.getElementById('skills-grid')) {
+    const coreSet = new Set(d.core_skills || []);
+    document.getElementById('skills-grid').innerHTML = Object.entries(d.skills).map(([cat, tags]) => {
+      const chips = tags.map(t => `<span class="stag${coreSet.has(t) ? ' hi' : ''}">${t}</span>`).join('');
+      return `<div class="sk-block"><div class="sk-cat">${cat}</div><div class="sk-tags">${chips}</div></div>`;
+    }).join('');
+  }
+
+  /* ── Certifications ── */
+  if (d.certifications && document.getElementById('certs-grid')) {
+    document.getElementById('certs-grid').innerHTML = d.certifications.map((c, i) => {
+      const expiry = c.expiry_year ? `Expires: ${c.expiry_year}` : 'No Expiry';
+      return `
+      <div class="cert-card reveal" style="transition-delay:${(i%3)*0.07}s">
+        <div class="cert-name">${c.icon} ${c.title}</div>
+        <div class="cert-issuer">${c.issuer}</div>
+        <div class="cert-year">Issued: ${c.certified_year} · ${expiry}</div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ── Education ── */
+  if (d.education && document.getElementById('edu-grid')) {
+    document.getElementById('edu-grid').innerHTML = d.education.map((e, i) => {
+      const badge = e.status === 'In Progress'
+        ? `<span class="edu-badge">🟢 In Progress</span>`
+        : `<span class="edu-badge">✅ Completed</span>`;
+      return `
+      <div class="edu-card reveal" style="transition-delay:${i*0.1}s">
+        <div class="edu-year">${e.period}</div>
+        <div class="edu-degree">${e.degree}</div>
+        <div class="edu-field">${e.field}</div>
+        <div class="edu-school">${e.school} · ${e.location}</div>
+        ${badge}
+      </div>`;
+    }).join('');
+  }
+
+  /* ── Re-observe newly injected .reveal elements ── */
+  document.querySelectorAll('.reveal:not(.up)').forEach(el => obs.observe(el));
+}
+
 /* ══ TYPING ANIMATION ══ */
 const roles = ['Data Engineer','Data Scientist','PySpark Developer','Databricks Specialist','ETL/ELT Builder','Cloud Data Engineer'];
 let ri = 0, ci = 0, del = false;
@@ -1121,6 +1225,9 @@ document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', e.clientX + 'px');
   document.body.style.setProperty('--y', e.clientY + 'px');
 });
+
+/* ══ KICK OFF DATA LOAD ══ */
+loadData();
 </script>
 </body>
 </html>
