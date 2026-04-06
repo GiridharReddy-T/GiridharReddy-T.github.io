@@ -281,7 +281,7 @@ nav.scrolled {
 .divider { height: 1px; background: var(--border); margin: 0 5rem; }
 
 /* ══ REVEAL ══ */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.reveal { opacity: 1; transform: none; }
 .reveal.up { opacity: 1; transform: none; }
 
 /* ══ ABOUT ══ */
@@ -781,68 +781,6 @@ footer a:hover { opacity: .75; }
       <h2 class="sec-title">Where I've <span class="grad">Worked.</span></h2>
     </div>
     <div class="exp-cards" id="exp-cards">
-
-      <div class="exp-card reveal">
-        <div class="exp-logo walmart">
-          <img src="images/wakamrt_logo-removebg-preview.png" alt="Walmart Logo"/>
-        </div>
-        <div>
-          <div class="exp-header">
-            <div>
-              <div class="exp-co">Walmart Global Tech India <span class="exp-badge">Featured</span></div>
-              <div class="exp-role">Data Engineer</div>
-            </div>
-            <div class="exp-meta">
-              <span class="exp-period">Apr 2024 – Jun 2025</span>
-              <span class="exp-loc">📍 Chennai, India</span>
-            </div>
-          </div>
-          <div class="exp-details">
-            <ul class="exp-bullets">
-              <li>Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks, processing 10M+ daily store and eCommerce sales transactions through <strong>Delta Lake</strong> for finance reporting and reconciliation.</li>
-              <li>Designed <strong>partition-based incremental ingestion</strong> with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong> and reducing pipeline runtime from 4 hours to 90 minutes.</li>
-              <li>Built and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption) ensuring analytics-ready datasets for downstream BI teams.</li>
-              <li>Facilitated <strong>hybrid cloud architecture (GCP + Azure)</strong> with Azure Data Factory and Azure Databricks, orchestrated via Automic for SLA-driven batch scheduling.</li>
-              <li>Maintained <strong>99%+ SLA adherence</strong> across high-volume daily cycles, proactively tracking pipeline failures and data quality issues via Jira.</li>
-            </ul>
-            <div class="exp-tags" style="margin-top:1rem">
-              <span class="etag">PySpark</span><span class="etag">Databricks</span><span class="etag">Delta Lake</span>
-              <span class="etag">GCP</span><span class="etag">Azure</span><span class="etag">BigQuery</span>
-              <span class="etag grey">ADF</span><span class="etag grey">Automic</span><span class="etag grey">Jira</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-card reveal" style="transition-delay:.1s">
-        <div class="exp-logo ww">
-          <img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/>
-        </div>
-        <div>
-          <div class="exp-header">
-            <div>
-              <div class="exp-co">Wenger &amp; Watson Private Limited</div>
-              <div class="exp-role">Data Scientist</div>
-            </div>
-            <div class="exp-meta">
-              <span class="exp-period">Nov 2023 – Jan 2024</span>
-              <span class="exp-loc">📍 Bengaluru, India</span>
-            </div>
-          </div>
-          <div class="exp-details">
-            <ul class="exp-bullets">
-              <li>Facilitated <strong>end-to-end ETL workflows in Hive and BigQuery</strong> for reporting and analytics teams, streamlining data delivery pipelines.</li>
-              <li>Managed <strong>incremental and historical datasets using Apache Hudi</strong>, ensuring accuracy and preventing dataset duplication across analytics pipelines.</li>
-              <li>Troubleshot <strong>Spark jobs and Kafka stream failures</strong> to minimize downtime and maintain reliability for critical analytics workflows.</li>
-            </ul>
-            <div class="exp-tags" style="margin-top:1rem">
-              <span class="etag grey">Hive</span><span class="etag grey">BigQuery</span><span class="etag grey">Apache Hudi</span>
-              <span class="etag grey">Spark</span><span class="etag grey">Kafka</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -861,14 +799,7 @@ footer a:hover { opacity: .75; }
       <div class="mq-track"><div class="mq-inner" id="mq1"></div></div>
       <div class="mq-track" style="margin-top:.5rem"><div class="mq-inner rev" id="mq2"></div></div>
     </div>
-    <div class="skills-grid reveal" id="skills-grid">
-      <div class="sk-block"><div class="sk-cat">Core Platform</div><div class="sk-tags"><span class="stag hi">Databricks</span><span class="stag hi">Delta Lake</span><span class="stag hi">PySpark</span><span class="stag">Spark SQL</span><span class="stag">Unity Catalog</span></div></div>
-      <div class="sk-block"><div class="sk-cat">Cloud — Azure</div><div class="sk-tags"><span class="stag hi">Azure Data Factory</span><span class="stag">ADLS Gen2</span><span class="stag">Azure Databricks</span><span class="stag">Microsoft Fabric</span></div></div>
-      <div class="sk-block"><div class="sk-cat">Cloud — GCP</div><div class="sk-tags"><span class="stag hi">Google Dataproc</span><span class="stag hi">BigQuery</span><span class="stag">GCS</span><span class="stag">Snowflake</span></div></div>
-      <div class="sk-block"><div class="sk-cat">Streaming &amp; Orchestration</div><div class="sk-tags"><span class="stag hi">Apache Kafka</span><span class="stag hi">Apache Airflow</span><span class="stag">Spark Streaming</span><span class="stag">Automic</span></div></div>
-      <div class="sk-block"><div class="sk-cat">Languages &amp; Databases</div><div class="sk-tags"><span class="stag">Python</span><span class="stag">SQL</span><span class="stag">Hive</span><span class="stag">Hadoop</span><span class="stag">MySQL</span><span class="stag">PostgreSQL</span><span class="stag">Apache Hudi</span></div></div>
-      <div class="sk-block"><div class="sk-cat">DevOps &amp; Tools</div><div class="sk-tags"><span class="stag">Git</span><span class="stag">Jira</span><span class="stag">Docker</span><span class="stag">CI/CD</span><span class="stag">OLAP</span><span class="stag">OLTP</span></div></div>
-    </div>
+    <div class="skills-grid" id="skills-grid"></div>
   </div>
 </section>
 
@@ -907,52 +838,7 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Credentials</div>
       <h2 class="sec-title">Certified <span class="grad">Expertise.</span></h2>
     </div>
-    <!-- FIX 3: all cert cards have clean, balanced structure — no orphaned </div> tags -->
-    <div class="certs-grid" id="certs-grid">
-
-      <div class="cert-card reveal">
-        <div class="cert-name">🎓 IBM Data Engineer Professional Certificate</div>
-        <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2025 · No Expiry</div>
-        <div class="cert-extra"><strong>Skills:</strong> Python, SQL, PySpark, ETL, NoSQL<br/><strong>Details:</strong> End-to-end data engineering with IBM tools and cloud platforms.</div>
-      </div>
-
-      <div class="cert-card reveal" style="transition-delay:.07s">
-        <div class="cert-name">🪟 Microsoft Certified: Fabric Data Engineer Associate</div>
-        <div class="cert-issuer">Microsoft</div>
-        <div class="cert-year">Issued: 2026 · Expires: 2027</div>
-        <div class="cert-extra"><strong>Skills:</strong> Microsoft Fabric, Lakehouse, Data Pipelines<br/><strong>Details:</strong> Design and implement data engineering solutions on Microsoft Fabric.</div>
-      </div>
-
-      <div class="cert-card reveal" style="transition-delay:.14s">
-        <div class="cert-name">🧱 Academy Accreditation — Databricks Fundamentals</div>
-        <div class="cert-issuer">Databricks</div>
-        <div class="cert-year">Issued: 2025 · No Expiry</div>
-        <div class="cert-extra"><strong>Skills:</strong> Databricks, Delta Lake, Unity Catalog<br/><strong>Details:</strong> Core Lakehouse concepts and Databricks platform fundamentals.</div>
-      </div>
-
-      <div class="cert-card reveal">
-        <div class="cert-name">🌬️ Astronomer Certification — Apache Airflow Fundamentals</div>
-        <div class="cert-issuer">Astronomer</div>
-        <div class="cert-year">Issued: 2024 · No Expiry</div>
-        <div class="cert-extra"><strong>Skills:</strong> Apache Airflow, DAGs, Pipeline Orchestration<br/><strong>Details:</strong> Build and manage production-grade data pipelines with Airflow.</div>
-      </div>
-
-      <div class="cert-card reveal" style="transition-delay:.07s">
-        <div class="cert-name">🗄️ Databases and SQL for Data Science with Python</div>
-        <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2025 · No Expiry</div>
-        <div class="cert-extra"><strong>Skills:</strong> SQL, Python, RDBMS, Data Analysis<br/><strong>Details:</strong> Advanced SQL and database design for data science use cases.</div>
-      </div>
-
-      <div class="cert-card reveal" style="transition-delay:.14s">
-        <div class="cert-name">📐 Introduction to Relational Databases (RDBMS)</div>
-        <div class="cert-issuer">IBM / Coursera</div>
-        <div class="cert-year">Issued: 2025 · No Expiry</div>
-        <div class="cert-extra"><strong>Skills:</strong> RDBMS, PostgreSQL, MySQL, Schema Design<br/><strong>Details:</strong> Foundational relational database concepts and SQL.</div>
-      </div>
-
-    </div>
+    <div class="certs-grid" id="certs-grid"></div>
   </div>
 </section>
 
@@ -966,22 +852,7 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Education</div>
       <h2 class="sec-title">Academic <span class="grad">Background.</span></h2>
     </div>
-    <div class="edu-grid" id="edu-grid">
-      <div class="edu-card reveal">
-        <div class="edu-year">Dec 2025 – Jan 2028</div>
-        <div class="edu-degree">Master's Degree</div>
-        <div class="edu-field">Data Science</div>
-        <div class="edu-school">Vellore Institute of Technology (VIT) · Vellore, Tamil Nadu, India</div>
-        <span class="edu-badge">🟢 In Progress</span>
-      </div>
-      <div class="edu-card reveal" style="transition-delay:.1s">
-        <div class="edu-year">Aug 2019 – Jun 2023</div>
-        <div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div>
-        <div class="edu-field">Computer Science &amp; Engineering</div>
-        <div class="edu-school">Sri Chandrasekharendra Saraswathi Vishwa Mahavidyalaya (SCSVMV) · Kanchipuram, Tamil Nadu, India</div>
-        <span class="edu-badge">✅ Completed</span>
-      </div>
-    </div>
+    <div class="edu-grid" id="edu-grid"></div>
   </div>
 </section>
 </div>
@@ -1080,7 +951,7 @@ async function loadData() {
       const bullets = e.bullets.map(b => `<li>${b}</li>`).join('');
       const tags = e.tags.map((t,ti) => `<span class="etag${ti>3?' grey':''}">${t}</span>`).join('');
       return `
-      <div class="exp-card reveal" style="transition-delay:${i*0.1}s">
+      <div class="exp-card">
         ${logo}
         <div>
           <div class="exp-header">
@@ -1116,7 +987,7 @@ async function loadData() {
 
       if (isFeatured) {
         return `
-        <div class="proj-card reveal">
+        <div class="proj-card">
           <div class="proj-img">
             <div class="proj-img-inner">
               <span class="proj-emoji-big">${p.icon}</span>
@@ -1139,7 +1010,7 @@ async function loadData() {
         </div>`;
       } else {
         return `
-        <div class="proj-card reveal" style="margin-top:2rem;transition-delay:${i*0.1}s">
+        <div class="proj-card" style="margin-top:2rem;transition-delay:${i*0.1}s">
           <div class="proj-img" style="min-height:120px">
             <div class="proj-img-inner">
               <span class="proj-emoji-big">${p.icon}</span>
@@ -1178,7 +1049,7 @@ async function loadData() {
     document.getElementById('certs-grid').innerHTML = d.certifications.map((c, i) => {
       const expiry = c.expiry_year ? `Expires: ${c.expiry_year}` : 'No Expiry';
       return `
-      <div class="cert-card reveal" style="transition-delay:${(i%3)*0.07}s">
+      <div class="cert-card">
         <div class="cert-name">${c.icon} ${c.title}</div>
         <div class="cert-issuer">${c.issuer}</div>
         <div class="cert-year">Issued: ${c.certified_year} · ${expiry}</div>
@@ -1193,7 +1064,7 @@ async function loadData() {
         ? `<span class="edu-badge">🟢 In Progress</span>`
         : `<span class="edu-badge">✅ Completed</span>`;
       return `
-      <div class="edu-card reveal" style="transition-delay:${i*0.1}s">
+      <div class="edu-card">
         <div class="edu-year">${e.period}</div>
         <div class="edu-degree">${e.degree}</div>
         <div class="edu-field">${e.field}</div>
