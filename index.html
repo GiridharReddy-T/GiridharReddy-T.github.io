@@ -54,7 +54,22 @@ body::before {
   );
 }
 
-::-webkit-scrollbar { width: 4px; }
+/* ══ PIPELINE BACKGROUND CANVAS ══ */
+#pipeline-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 1;
+}
+nav, section, footer, .divider, .exp-bg, .proj-bg, .edu-bg {
+  position: relative;
+  z-index: 1;
+}
+
+
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
 ::selection { background: rgba(139,92,246,.35); color: #fff; }
@@ -657,6 +672,9 @@ footer a:hover { opacity: .75; }
 </head>
 <body>
 
+<!-- ══ PIPELINE CANVAS BACKGROUND ══ -->
+<canvas id="pipeline-bg"></canvas>
+
 <!-- ══ NAV ══ -->
 <nav id="nav">
   <a class="nav-logo" href="#home">GR.</a>
@@ -689,7 +707,7 @@ footer a:hover { opacity: .75; }
     <div class="hero-at-logo">W</div>
     Ex-<strong>Walmart Global Tech</strong> · Data Engineer
   </div>
-  <p class="hero-desc">
+  <p class="hero-desc" id="hero-desc">
     Building <strong>ETL/ELT pipelines at scale</strong> with PySpark, Databricks &amp; Delta Lake on Azure &amp; GCP.
     Processed <strong>10M+ daily retail transactions</strong> in production.
   </p>
@@ -859,41 +877,8 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Projects</div>
       <h2 class="sec-title">Featured <span class="grad">Work.</span></h2>
     </div>
-    <div class="featured-label">Featured Project</div>
-    <div class="proj-card reveal">
-      <div class="proj-img">
-        <div class="proj-img-inner">
-          <span class="proj-emoji-big">⚡</span>
-          <div class="proj-img-title">HEALTH ANALYTICS LAKEHOUSE</div>
-          <div class="proj-badges">
-            <span class="pbadge">Kafka</span>
-            <span class="pbadge">Spark Streaming</span>
-            <span class="pbadge">Delta Lake</span>
-            <span class="pbadge">Databricks</span>
-          </div>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div>
-          <div class="proj-feat-label">Personal Project · Data Engineering</div>
-          <div class="proj-title">Real-Time Health Analytics Lakehouse Platform</div>
-          <div class="proj-desc">A fully end-to-end Databricks Lakehouse built from scratch to process wearable IoT health data at scale — built with Kafka + Spark Structured Streaming, Medallion architecture, and Unity Catalog governance.</div>
-          <ul class="proj-blist">
-            <li>Built a real-time Databricks Lakehouse using <strong>Delta Lake and Medallion architecture</strong> to process wearable IoT health data (BPM, workout, GYM events) at scale.</li>
-            <li>Developed <strong>Kafka + Spark Structured Streaming pipelines with CDC handling</strong> for user profiles and high-volume sensor event streams.</li>
-            <li>Delivered business-ready <strong>Gold datasets</strong> for daily workout analytics with governance via <strong>Unity Catalog</strong>.</li>
-          </ul>
-        </div>
-        <div class="proj-actions">
-          <a href="https://github.com/GiridharReddy-T/" target="_blank" class="proj-link">View on GitHub ↗</a>
-          <div class="proj-ptags">
-            <span class="stag hi">Kafka</span><span class="stag hi">Spark Streaming</span>
-            <span class="stag hi">Delta Lake</span><span class="stag hi">Databricks</span>
-            <span class="stag">Unity Catalog</span><span class="stag">CDC</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="featured-label" id="proj-featured-label">Featured Project</div>
+    <div id="proj-cards"></div>
 
     <!-- FIX 4: duplicate style attribute merged into one -->
     <div class="reveal" style="margin-top:3.5rem;transition-delay:.1s">
@@ -1059,6 +1044,11 @@ async function loadData() {
 
   const m = d.meta;
 
+  /* ── Hero description ── */
+  if (m && document.getElementById('hero-desc')) {
+    document.getElementById('hero-desc').innerHTML = m.hero_desc;
+  }
+
   /* ── Hero stats ── */
   if (d.stats && document.getElementById('hero-stats')) {
     document.getElementById('hero-stats').innerHTML = d.stats.map(s =>
@@ -1104,6 +1094,68 @@ async function loadData() {
           </div>
         </div>
       </div>`;
+    }).join('');
+  }
+
+  /* ── Projects ── */
+  if (d.projects && document.getElementById('proj-cards')) {
+    const coreSet = new Set(d.core_skills || []);
+    // First project is "featured", rest are standard cards
+    document.getElementById('proj-cards').innerHTML = d.projects.map((p, i) => {
+      const isFeatured = i === 0;
+      const githubHref = p.github_repo || 'https://github.com/GiridharReddy-T/';
+      const bullets = p.bullets.map(b => `<li>${b}</li>`).join('');
+      const ptags = p.tags.map(t => `<span class="stag${coreSet.has(t) ? ' hi' : ''}">${t}</span>`).join('');
+      const badgeTags = p.tags.slice(0, 4).map(t => `<span class="pbadge">${t}</span>`).join('');
+      const titleUpper = p.title.toUpperCase().replace(/[-_]/g, ' ');
+
+      if (isFeatured) {
+        return `
+        <div class="proj-card reveal">
+          <div class="proj-img">
+            <div class="proj-img-inner">
+              <span class="proj-emoji-big">${p.icon}</span>
+              <div class="proj-img-title">${titleUpper}</div>
+              <div class="proj-badges">${badgeTags}</div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div>
+              <div class="proj-feat-label">${p.type} · Data Engineering</div>
+              <div class="proj-title">${p.title}</div>
+              <div class="proj-desc">${p.description}</div>
+              <ul class="proj-blist">${bullets}</ul>
+            </div>
+            <div class="proj-actions">
+              <a href="${githubHref}" target="_blank" class="proj-link">View on GitHub ↗</a>
+              <div class="proj-ptags">${ptags}</div>
+            </div>
+          </div>
+        </div>`;
+      } else {
+        return `
+        <div class="proj-card reveal" style="margin-top:2rem;transition-delay:${i*0.1}s">
+          <div class="proj-img" style="min-height:120px">
+            <div class="proj-img-inner">
+              <span class="proj-emoji-big">${p.icon}</span>
+              <div class="proj-img-title" style="font-size:.9rem">${p.title.toUpperCase()}</div>
+              <div class="proj-badges">${badgeTags}</div>
+            </div>
+          </div>
+          <div class="proj-body">
+            <div>
+              <div class="proj-feat-label">${p.type} · Data Engineering</div>
+              <div class="proj-title">${p.title}</div>
+              <div class="proj-desc">${p.description}</div>
+              <ul class="proj-blist">${bullets}</ul>
+            </div>
+            <div class="proj-actions">
+              <a href="${githubHref}" target="_blank" class="proj-link">View on GitHub ↗</a>
+              <div class="proj-ptags">${ptags}</div>
+            </div>
+          </div>
+        </div>`;
+      }
     }).join('');
   }
 
@@ -1225,6 +1277,240 @@ document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', e.clientX + 'px');
   document.body.style.setProperty('--y', e.clientY + 'px');
 });
+
+/* ══ DATA PIPELINE BACKGROUND ANIMATION ══ */
+(function() {
+  const canvas = document.getElementById('pipeline-bg');
+  const ctx = canvas.getContext('2d');
+
+  let W, H, nodes, edges, packets, stars;
+
+  /* ── Palette ── */
+  const COL = {
+    node:       'rgba(139,92,246,0.55)',
+    nodeGlow:   'rgba(139,92,246,0.12)',
+    nodeRing:   'rgba(139,92,246,0.18)',
+    edge:       'rgba(139,92,246,0.10)',
+    edgeHot:    'rgba(139,92,246,0.28)',
+    packet:     '#8b5cf6',
+    packetGlow: 'rgba(139,92,246,0.6)',
+    star:       'rgba(255,255,255,',
+    label:      'rgba(139,92,246,0.35)',
+  };
+
+  /* Pipeline node labels — data engineering theme */
+  const LABELS = [
+    'Kafka','Spark','Delta','Bronze','Silver','Gold',
+    'ADF','GCS','BQ','ADLS','Airflow','Hudi',
+    'ETL','CDC','ELT','Lake','Ingest','Transform'
+  ];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    init();
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+  function pick(arr)   { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function init() {
+    /* ── Stars / space dust ── */
+    stars = Array.from({ length: 160 }, () => ({
+      x:  rand(0, W),
+      y:  rand(0, H),
+      r:  rand(0.2, 1.2),
+      a:  rand(0.08, 0.5),
+      tw: rand(2000, 8000),
+      t0: rand(0, 8000),
+    }));
+
+    /* ── Pipeline nodes — scattered like satellites ── */
+    const count = Math.max(9, Math.floor(W * H / 38000));
+    nodes = Array.from({ length: count }, (_, i) => ({
+      id:    i,
+      x:     rand(60, W - 60),
+      y:     rand(60, H - 60),
+      vx:    rand(-0.06, 0.06),   /* very slow drift */
+      vy:    rand(-0.04, 0.05),
+      r:     rand(3.5, 6),
+      label: pick(LABELS),
+      pulse: rand(0, Math.PI * 2),
+      pulseSpeed: rand(0.005, 0.012),
+    }));
+
+    /* ── Edges — connect nearby nodes ── */
+    edges = [];
+    const maxDist = Math.min(W, H) * 0.32;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        if (Math.hypot(dx, dy) < maxDist) {
+          edges.push({ a: i, b: j });
+        }
+      }
+    }
+
+    /* ── Data packets — travel along edges ── */
+    packets = Array.from({ length: Math.min(edges.length, 18) }, () => makePacket());
+  }
+
+  function makePacket() {
+    const e = pick(edges);
+    const fwd = Math.random() > 0.5;
+    return {
+      edge:  e,
+      t:     Math.random(),         /* 0..1 position along edge */
+      speed: rand(0.0004, 0.0012),  /* very slow — satellite drift */
+      fwd:   fwd,
+      size:  rand(1.8, 3.2),
+      trail: [],
+    };
+  }
+
+  /* ── Draw helpers ── */
+  function drawStar(s, now) {
+    const phase = ((now - s.t0) % s.tw) / s.tw;
+    const alpha = s.a * (0.5 + 0.5 * Math.sin(phase * Math.PI * 2));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = COL.star + alpha + ')';
+    ctx.fill();
+  }
+
+  function drawEdge(e) {
+    const a = nodes[e.a], b = nodes[e.b];
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = COL.edge;
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+  }
+
+  function drawNode(n, now) {
+    n.pulse += n.pulseSpeed;
+    const glow = 0.5 + 0.5 * Math.sin(n.pulse);
+
+    /* outer ring pulse */
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r + 6 + glow * 4, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(139,92,246,${0.04 + glow * 0.08})`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    /* glow halo */
+    const gr = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
+    gr.addColorStop(0, `rgba(139,92,246,${0.10 + glow * 0.08})`);
+    gr.addColorStop(1, 'rgba(139,92,246,0)');
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
+    ctx.fillStyle = gr;
+    ctx.fill();
+
+    /* core dot */
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(139,92,246,${0.45 + glow * 0.25})`;
+    ctx.fill();
+
+    /* label */
+    ctx.font = `500 9px monospace`;
+    ctx.fillStyle = COL.label;
+    ctx.textAlign = 'center';
+    ctx.fillText(n.label, n.x, n.y + n.r + 11);
+  }
+
+  function drawPacket(p) {
+    const a = nodes[p.edge.a], b = nodes[p.edge.b];
+    const t = p.fwd ? p.t : 1 - p.t;
+    const x = a.x + (b.x - a.x) * t;
+    const y = a.y + (b.y - a.y) * t;
+
+    /* save to trail */
+    p.trail.push({ x, y });
+    if (p.trail.length > 18) p.trail.shift();
+
+    /* draw trail */
+    for (let i = 0; i < p.trail.length - 1; i++) {
+      const alpha = (i / p.trail.length) * 0.45;
+      ctx.beginPath();
+      ctx.moveTo(p.trail[i].x, p.trail[i].y);
+      ctx.lineTo(p.trail[i + 1].x, p.trail[i + 1].y);
+      ctx.strokeStyle = `rgba(139,92,246,${alpha})`;
+      ctx.lineWidth = p.size * 0.6;
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    /* glow */
+    const gr = ctx.createRadialGradient(x, y, 0, x, y, p.size * 3.5);
+    gr.addColorStop(0, 'rgba(168,85,247,0.7)');
+    gr.addColorStop(1, 'rgba(139,92,246,0)');
+    ctx.beginPath();
+    ctx.arc(x, y, p.size * 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = gr;
+    ctx.fill();
+
+    /* core */
+    ctx.beginPath();
+    ctx.arc(x, y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = '#c4b5fd';
+    ctx.fill();
+  }
+
+  function update() {
+    /* drift nodes slowly, bounce off walls */
+    nodes.forEach(n => {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 40 || n.x > W - 40) { n.vx *= -1; n.x = Math.max(40, Math.min(W - 40, n.x)); }
+      if (n.y < 40 || n.y > H - 40) { n.vy *= -1; n.y = Math.max(40, Math.min(H - 40, n.y)); }
+    });
+
+    /* advance packets */
+    packets.forEach((p, i) => {
+      p.t += p.speed;
+      if (p.t >= 1) {
+        packets[i] = makePacket();
+      }
+    });
+
+    /* lazily rebuild edges when nodes have drifted (every 180 frames) */
+    update._tick = (update._tick || 0) + 1;
+    if (update._tick % 180 === 0) {
+      edges = [];
+      const maxDist = Math.min(W, H) * 0.32;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          if (Math.hypot(dx, dy) < maxDist) edges.push({ a: i, b: j });
+        }
+      }
+    }
+  }
+
+  function draw(now) {
+    ctx.clearRect(0, 0, W, H);
+
+    stars.forEach(s => drawStar(s, now));
+    edges.forEach(e => drawEdge(e));
+    nodes.forEach(n => drawNode(n, now));
+    packets.forEach(p => drawPacket(p));
+  }
+
+  function loop(now) {
+    update();
+    draw(now);
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  requestAnimationFrame(loop);
+})();
 
 /* ══ KICK OFF DATA LOAD ══ */
 loadData();
