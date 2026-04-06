@@ -73,7 +73,7 @@
         "End-to-end ownership — from raw ingestion through to analytics-ready consumption layer — replicating production Lakehouse patterns."
       ],
       "tags": ["Kafka","Spark Streaming","Delta Lake","Databricks","Unity Catalog","Medallion","CDC","Python"]
-    }
+    },
 
     {
       "title": "ETL-Toll-Data-Pipeline-using-Apache-Airflow",
@@ -86,6 +86,7 @@
         "Built automated data pipelines to process toll data from multiple sources, ensuring data consistency, reliability, and fault tolerance.",
         "Applied data transformation techniques using Python to clean, structure, and prepare data for downstream analytics.",
         "Implemented workflow monitoring, logging, and retry mechanisms in Airflow to improve pipeline robustness and observability."
+      ]
     }
   ],
 
