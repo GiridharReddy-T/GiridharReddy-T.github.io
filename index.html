@@ -425,6 +425,55 @@ nav.scrolled {
 .stag.hi { background: rgba(139,92,246,.1); border-color: rgba(139,92,246,.25); color: var(--purple2); }
 
 /* ══ PROJECTS ══ */
+.proj-showcase {
+  display: flex;
+  gap: 1rem;
+  height: 320px;
+}
+
+.proj-item {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+.proj-mini {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+}
+
+.proj-full {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.proj-item:hover {
+  flex: 3;
+  background: linear-gradient(135deg, #1a1a2e, #12121e);
+}
+
+.proj-item:hover .proj-full {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.proj-item:hover .proj-mini {
+  opacity: 0;
+}
+
+.proj-showcase:hover .proj-item:not(:hover) {
+  flex: 0.7;
+  opacity: 0.5;
+}
+
 .proj-bg { background: var(--bg2); }
 .proj-section { padding: 7rem 5rem; max-width: 1200px; margin: 0 auto; }
 .featured-label {
@@ -859,42 +908,45 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Projects</div>
       <h2 class="sec-title">Featured <span class="grad">Work.</span></h2>
     </div>
-    <div class="featured-label">Featured Project</div>
-    <div class="proj-card reveal">
-      <div class="proj-img">
-        <div class="proj-img-inner">
-          <span class="proj-emoji-big">⚡</span>
-          <div class="proj-img-title">HEALTH ANALYTICS LAKEHOUSE</div>
-          <div class="proj-badges">
-            <span class="pbadge">Kafka</span>
-            <span class="pbadge">Spark Streaming</span>
-            <span class="pbadge">Delta Lake</span>
-            <span class="pbadge">Databricks</span>
-          </div>
-        </div>
-      </div>
-      <div class="proj-body">
-        <div>
-          <div class="proj-feat-label">Personal Project · Data Engineering</div>
-          <div class="proj-title">Real-Time Health Analytics Lakehouse Platform</div>
-          <div class="proj-desc">A fully end-to-end Databricks Lakehouse built from scratch to process wearable IoT health data at scale — built with Kafka + Spark Structured Streaming, Medallion architecture, and Unity Catalog governance.</div>
-          <ul class="proj-blist">
-            <li>Built a real-time Databricks Lakehouse using <strong>Delta Lake and Medallion architecture</strong> to process wearable IoT health data (BPM, workout, GYM events) at scale.</li>
-            <li>Developed <strong>Kafka + Spark Structured Streaming pipelines with CDC handling</strong> for user profiles and high-volume sensor event streams.</li>
-            <li>Delivered business-ready <strong>Gold datasets</strong> for daily workout analytics with governance via <strong>Unity Catalog</strong>.</li>
-          </ul>
-        </div>
-        <div class="proj-actions">
-          <a href="https://github.com/GiridharReddy-T/" target="_blank" class="proj-link">View on GitHub ↗</a>
-          <div class="proj-ptags">
-            <span class="stag hi">Kafka</span><span class="stag hi">Spark Streaming</span>
-            <span class="stag hi">Delta Lake</span><span class="stag hi">Databricks</span>
-            <span class="stag">Unity Catalog</span><span class="stag">CDC</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="featured-label">Featured Work</div>
 
+<div class="proj-showcase reveal">
+
+  <div class="proj-item">
+    <div class="proj-mini">
+      <h3>Health Analytics Lakehouse</h3>
+      <span>1M+ events/day</span>
+    </div>
+    <div class="proj-full">
+      <h2>Real-Time Health Analytics Lakehouse Platform</h2>
+      <p>Processed 1M+ IoT events/day using Kafka + Spark Streaming + Delta Lake.</p>
+    </div>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-mini">
+      <h3>Real-Time Pipeline</h3>
+      <span>Low latency streaming</span>
+    </div>
+    <div class="proj-full">
+      <h2>Streaming ML Inference Pipeline</h2>
+      <p>Built real-time prediction pipeline with Kafka + Spark Structured Streaming.</p>
+    </div>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-mini">
+      <h3>Airflow ETL</h3>
+      <span>Batch orchestration</span>
+    </div>
+    <div class="proj-full">
+      <h2>ETL Toll Data Pipeline</h2>
+      <p>Designed Airflow pipelines for ingestion and transformation into PostgreSQL.</p>
+    </div>
+  </div>
+
+</div>
+      
     <!-- FIX 4: duplicate style attribute merged into one -->
     <div class="reveal" style="margin-top:3.5rem;transition-delay:.1s">
       <div class="sec-label" style="margin-bottom:1.2rem">From GitHub <span style="font-size:.65rem;color:var(--muted);margin-left:.4rem">· auto-updated</span></div>
@@ -1124,6 +1176,34 @@ document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', e.clientX + 'px');
   document.body.style.setProperty('--y', e.clientY + 'px');
 });
+/* data.json updating details */ 
+fetch('data1.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.querySelector('.proj-showcase');
+
+    container.innerHTML = ""; // clear existing static content
+
+    data.projects.forEach(project => {
+      const div = document.createElement('div');
+      div.className = 'proj-item';
+
+      div.innerHTML = `
+        <div class="proj-mini">
+          <h3>${project.title}</h3>
+          <span>${project.tags?.[0] || "Project"}</span>
+        </div>
+
+        <div class="proj-full">
+          <h2>${project.title}</h2>
+          <p>${project.description}</p>
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+  })
+  .catch(err => console.error(err));
 </script>
 </body>
 </html>
