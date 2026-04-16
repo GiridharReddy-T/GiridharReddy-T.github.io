@@ -54,28 +54,7 @@ body::before {
   );
 }
 
-/* ══ PIPELINE BACKGROUND CANVAS ══ */
-#pipeline-bg {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.55;
-}
-nav, section, footer, .divider, .exp-bg, .proj-bg, .edu-bg {
-  position: relative;
-  z-index: 1;
-}
-/* Ensure all section wrapper backgrounds are opaque so canvas doesn't bleed through */
-.exp-bg    { background: var(--bg2) !important; }
-.proj-bg   { background: var(--bg2) !important; }
-.edu-bg    { background: var(--bg2) !important; }
-section    { background: var(--bg);  }
-#skills    { background: var(--bg);  }
-#certifications { background: var(--bg); }
-
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
 ::selection { background: rgba(139,92,246,.35); color: #fff; }
@@ -281,7 +260,7 @@ nav.scrolled {
 .divider { height: 1px; background: var(--border); margin: 0 5rem; }
 
 /* ══ REVEAL ══ */
-.reveal { opacity: 1; transform: none; }
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
 .reveal.up { opacity: 1; transform: none; }
 
 /* ══ ABOUT ══ */
@@ -335,7 +314,7 @@ nav.scrolled {
 .exp-cards { display: flex; flex-direction: column; gap: 1.5rem; }
 
 .exp-card {
-  background: var(--card);
+  background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -354,17 +333,18 @@ nav.scrolled {
 .exp-card:hover { border-color: rgba(139,92,246,.4); transform: translateY(-2px); box-shadow: 0 8px 40px rgba(0,0,0,.3); align-items: start; padding-top: 2rem; padding-bottom: 2rem;}
 .exp-card:hover::before { opacity: 1; }
 
-/* Details always visible */
+/* Hidden details — collapsed by default */
 .exp-details {
-  max-height: none;
-  overflow: visible;
-  opacity: 1;
-  transform: none;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height .45s ease, opacity .35s ease .05s, transform .35s ease .05s;
 }
 .exp-card:hover .exp-details {
-  max-height: none;
+  max-height: 600px;
   opacity: 1;
-  transform: none;
+  transform: translateY(0);
 }
 /* exp-logo — app-icon style matching screenshot */
 .exp-logo {
@@ -677,9 +657,6 @@ footer a:hover { opacity: .75; }
 </head>
 <body>
 
-<!-- ══ PIPELINE CANVAS BACKGROUND ══ -->
-<canvas id="pipeline-bg"></canvas>
-
 <!-- ══ NAV ══ -->
 <nav id="nav">
   <a class="nav-logo" href="#home">GR.</a>
@@ -712,7 +689,7 @@ footer a:hover { opacity: .75; }
     <div class="hero-at-logo">W</div>
     Ex-<strong>Walmart Global Tech</strong> · Data Engineer
   </div>
-  <p class="hero-desc" id="hero-desc">
+  <p class="hero-desc">
     Building <strong>ETL/ELT pipelines at scale</strong> with PySpark, Databricks &amp; Delta Lake on Azure &amp; GCP.
     Processed <strong>10M+ daily retail transactions</strong> in production.
   </p>
@@ -727,7 +704,7 @@ footer a:hover { opacity: .75; }
       LinkedIn
     </a>
   </div>
-  <div class="hero-stats" id="hero-stats">
+  <div class="hero-stats">
     <div class="hstat"><div class="hstat-val">10M+</div><div class="hstat-lbl">Daily transactions<br/>in production</div></div>
     <div class="hstat"><div class="hstat-val">70%</div><div class="hstat-lbl">Scan reduction via<br/>incremental ingestion</div></div>
     <div class="hstat"><div class="hstat-val">4h→90m</div><div class="hstat-lbl">Pipeline runtime<br/>improvement</div></div>
@@ -751,7 +728,7 @@ footer a:hover { opacity: .75; }
     <a href="mailto:Giridhar.scsvmv@gmail.com" class="btn-grad" style="width:fit-content">Get In Touch ↗</a>
   </div>
   <div class="about-right reveal" style="transition-delay:.1s">
-    <div class="about-stat-grid" id="about-stats">
+    <div class="about-stat-grid">
       <div class="astat"><div class="astat-val">10M+</div><div class="astat-lbl">Daily retail transactions processed</div></div>
       <div class="astat"><div class="astat-val">70%</div><div class="astat-lbl">Scan reduction achieved</div></div>
       <div class="astat"><div class="astat-val">99%+</div><div class="astat-lbl">SLA adherence maintained</div></div>
@@ -780,7 +757,69 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Work Experience</div>
       <h2 class="sec-title">Where I've <span class="grad">Worked.</span></h2>
     </div>
-    <div class="exp-cards" id="exp-cards">
+    <div class="exp-cards">
+
+      <div class="exp-card reveal">
+        <div class="exp-logo walmart">
+          <img src="images/wakamrt_logo-removebg-preview.png" alt="Walmart Logo"/>
+        </div>
+        <div>
+          <div class="exp-header">
+            <div>
+              <div class="exp-co">Walmart Global Tech India <span class="exp-badge">Featured</span></div>
+              <div class="exp-role">Data Engineer</div>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-period">Apr 2024 – Jun 2025</span>
+              <span class="exp-loc">📍 Chennai, India</span>
+            </div>
+          </div>
+          <div class="exp-details">
+            <ul class="exp-bullets">
+              <li>Engineered production-grade <strong>Spark-based ETL pipelines</strong> on Google Dataproc and Azure Databricks, processing 10M+ daily store and eCommerce sales transactions through <strong>Delta Lake</strong> for finance reporting and reconciliation.</li>
+              <li>Designed <strong>partition-based incremental ingestion</strong> with rolling 7-day timestamp windows — <strong>eliminating full dataset scans</strong> and reducing pipeline runtime from 4 hours to 90 minutes.</li>
+              <li>Built and maintained <strong>layered data architecture</strong> (Raw → Curated → Enriched → Consumption) ensuring analytics-ready datasets for downstream BI teams.</li>
+              <li>Facilitated <strong>hybrid cloud architecture (GCP + Azure)</strong> with Azure Data Factory and Azure Databricks, orchestrated via Automic for SLA-driven batch scheduling.</li>
+              <li>Maintained <strong>99%+ SLA adherence</strong> across high-volume daily cycles, proactively tracking pipeline failures and data quality issues via Jira.</li>
+            </ul>
+            <div class="exp-tags" style="margin-top:1rem">
+              <span class="etag">PySpark</span><span class="etag">Databricks</span><span class="etag">Delta Lake</span>
+              <span class="etag">GCP</span><span class="etag">Azure</span><span class="etag">BigQuery</span>
+              <span class="etag grey">ADF</span><span class="etag grey">Automic</span><span class="etag grey">Jira</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-card reveal" style="transition-delay:.1s">
+        <div class="exp-logo ww">
+          <img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/>
+        </div>
+        <div>
+          <div class="exp-header">
+            <div>
+              <div class="exp-co">Wenger &amp; Watson Private Limited</div>
+              <div class="exp-role">Data Scientist</div>
+            </div>
+            <div class="exp-meta">
+              <span class="exp-period">Nov 2023 – Jan 2024</span>
+              <span class="exp-loc">📍 Bengaluru, India</span>
+            </div>
+          </div>
+          <div class="exp-details">
+            <ul class="exp-bullets">
+              <li>Facilitated <strong>end-to-end ETL workflows in Hive and BigQuery</strong> for reporting and analytics teams, streamlining data delivery pipelines.</li>
+              <li>Managed <strong>incremental and historical datasets using Apache Hudi</strong>, ensuring accuracy and preventing dataset duplication across analytics pipelines.</li>
+              <li>Troubleshot <strong>Spark jobs and Kafka stream failures</strong> to minimize downtime and maintain reliability for critical analytics workflows.</li>
+            </ul>
+            <div class="exp-tags" style="margin-top:1rem">
+              <span class="etag grey">Hive</span><span class="etag grey">BigQuery</span><span class="etag grey">Apache Hudi</span>
+              <span class="etag grey">Spark</span><span class="etag grey">Kafka</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -799,7 +838,14 @@ footer a:hover { opacity: .75; }
       <div class="mq-track"><div class="mq-inner" id="mq1"></div></div>
       <div class="mq-track" style="margin-top:.5rem"><div class="mq-inner rev" id="mq2"></div></div>
     </div>
-    <div class="skills-grid" id="skills-grid"></div>
+    <div class="skills-grid reveal">
+      <div class="sk-block"><div class="sk-cat">Core Platform</div><div class="sk-tags"><span class="stag hi">Databricks</span><span class="stag hi">Delta Lake</span><span class="stag hi">PySpark</span><span class="stag">Spark SQL</span><span class="stag">Unity Catalog</span></div></div>
+      <div class="sk-block"><div class="sk-cat">Cloud — Azure</div><div class="sk-tags"><span class="stag hi">Azure Data Factory</span><span class="stag">ADLS Gen2</span><span class="stag">Azure Databricks</span><span class="stag">Microsoft Fabric</span></div></div>
+      <div class="sk-block"><div class="sk-cat">Cloud — GCP</div><div class="sk-tags"><span class="stag hi">Google Dataproc</span><span class="stag hi">BigQuery</span><span class="stag">GCS</span><span class="stag">Snowflake</span></div></div>
+      <div class="sk-block"><div class="sk-cat">Streaming &amp; Orchestration</div><div class="sk-tags"><span class="stag hi">Apache Kafka</span><span class="stag hi">Apache Airflow</span><span class="stag">Spark Streaming</span><span class="stag">Automic</span></div></div>
+      <div class="sk-block"><div class="sk-cat">Languages &amp; Databases</div><div class="sk-tags"><span class="stag">Python</span><span class="stag">SQL</span><span class="stag">Hive</span><span class="stag">Hadoop</span><span class="stag">MySQL</span><span class="stag">PostgreSQL</span><span class="stag">Apache Hudi</span></div></div>
+      <div class="sk-block"><div class="sk-cat">DevOps &amp; Tools</div><div class="sk-tags"><span class="stag">Git</span><span class="stag">Jira</span><span class="stag">Docker</span><span class="stag">CI/CD</span><span class="stag">OLAP</span><span class="stag">OLTP</span></div></div>
+    </div>
   </div>
 </section>
 
@@ -813,8 +859,41 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Projects</div>
       <h2 class="sec-title">Featured <span class="grad">Work.</span></h2>
     </div>
-    <div class="featured-label" id="proj-featured-label">Featured Project</div>
-    <div id="proj-cards"></div>
+    <div class="featured-label">Featured Project</div>
+    <div class="proj-card reveal">
+      <div class="proj-img">
+        <div class="proj-img-inner">
+          <span class="proj-emoji-big">⚡</span>
+          <div class="proj-img-title">HEALTH ANALYTICS LAKEHOUSE</div>
+          <div class="proj-badges">
+            <span class="pbadge">Kafka</span>
+            <span class="pbadge">Spark Streaming</span>
+            <span class="pbadge">Delta Lake</span>
+            <span class="pbadge">Databricks</span>
+          </div>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div>
+          <div class="proj-feat-label">Personal Project · Data Engineering</div>
+          <div class="proj-title">Real-Time Health Analytics Lakehouse Platform</div>
+          <div class="proj-desc">A fully end-to-end Databricks Lakehouse built from scratch to process wearable IoT health data at scale — built with Kafka + Spark Structured Streaming, Medallion architecture, and Unity Catalog governance.</div>
+          <ul class="proj-blist">
+            <li>Built a real-time Databricks Lakehouse using <strong>Delta Lake and Medallion architecture</strong> to process wearable IoT health data (BPM, workout, GYM events) at scale.</li>
+            <li>Developed <strong>Kafka + Spark Structured Streaming pipelines with CDC handling</strong> for user profiles and high-volume sensor event streams.</li>
+            <li>Delivered business-ready <strong>Gold datasets</strong> for daily workout analytics with governance via <strong>Unity Catalog</strong>.</li>
+          </ul>
+        </div>
+        <div class="proj-actions">
+          <a href="https://github.com/GiridharReddy-T/" target="_blank" class="proj-link">View on GitHub ↗</a>
+          <div class="proj-ptags">
+            <span class="stag hi">Kafka</span><span class="stag hi">Spark Streaming</span>
+            <span class="stag hi">Delta Lake</span><span class="stag hi">Databricks</span>
+            <span class="stag">Unity Catalog</span><span class="stag">CDC</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- FIX 4: duplicate style attribute merged into one -->
     <div class="reveal" style="margin-top:3.5rem;transition-delay:.1s">
@@ -838,7 +917,52 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Credentials</div>
       <h2 class="sec-title">Certified <span class="grad">Expertise.</span></h2>
     </div>
-    <div class="certs-grid" id="certs-grid"></div>
+    <!-- FIX 3: all cert cards have clean, balanced structure — no orphaned </div> tags -->
+    <div class="certs-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-name">🎓 IBM Data Engineer Professional Certificate</div>
+        <div class="cert-issuer">IBM / Coursera</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
+        <div class="cert-extra"><strong>Skills:</strong> Python, SQL, PySpark, ETL, NoSQL<br/><strong>Details:</strong> End-to-end data engineering with IBM tools and cloud platforms.</div>
+      </div>
+
+      <div class="cert-card reveal" style="transition-delay:.07s">
+        <div class="cert-name">🪟 Microsoft Certified: Fabric Data Engineer Associate</div>
+        <div class="cert-issuer">Microsoft</div>
+        <div class="cert-year">Issued: 2026 · Expires: 2027</div>
+        <div class="cert-extra"><strong>Skills:</strong> Microsoft Fabric, Lakehouse, Data Pipelines<br/><strong>Details:</strong> Design and implement data engineering solutions on Microsoft Fabric.</div>
+      </div>
+
+      <div class="cert-card reveal" style="transition-delay:.14s">
+        <div class="cert-name">🧱 Academy Accreditation — Databricks Fundamentals</div>
+        <div class="cert-issuer">Databricks</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
+        <div class="cert-extra"><strong>Skills:</strong> Databricks, Delta Lake, Unity Catalog<br/><strong>Details:</strong> Core Lakehouse concepts and Databricks platform fundamentals.</div>
+      </div>
+
+      <div class="cert-card reveal">
+        <div class="cert-name">🌬️ Astronomer Certification — Apache Airflow Fundamentals</div>
+        <div class="cert-issuer">Astronomer</div>
+        <div class="cert-year">Issued: 2024 · No Expiry</div>
+        <div class="cert-extra"><strong>Skills:</strong> Apache Airflow, DAGs, Pipeline Orchestration<br/><strong>Details:</strong> Build and manage production-grade data pipelines with Airflow.</div>
+      </div>
+
+      <div class="cert-card reveal" style="transition-delay:.07s">
+        <div class="cert-name">🗄️ Databases and SQL for Data Science with Python</div>
+        <div class="cert-issuer">IBM / Coursera</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
+        <div class="cert-extra"><strong>Skills:</strong> SQL, Python, RDBMS, Data Analysis<br/><strong>Details:</strong> Advanced SQL and database design for data science use cases.</div>
+      </div>
+
+      <div class="cert-card reveal" style="transition-delay:.14s">
+        <div class="cert-name">📐 Introduction to Relational Databases (RDBMS)</div>
+        <div class="cert-issuer">IBM / Coursera</div>
+        <div class="cert-year">Issued: 2025 · No Expiry</div>
+        <div class="cert-extra"><strong>Skills:</strong> RDBMS, PostgreSQL, MySQL, Schema Design<br/><strong>Details:</strong> Foundational relational database concepts and SQL.</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -852,7 +976,22 @@ footer a:hover { opacity: .75; }
       <div class="sec-label">Education</div>
       <h2 class="sec-title">Academic <span class="grad">Background.</span></h2>
     </div>
-    <div class="edu-grid" id="edu-grid"></div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-year">Dec 2025 – Jan 2028</div>
+        <div class="edu-degree">Master's Degree</div>
+        <div class="edu-field">Data Science</div>
+        <div class="edu-school">Vellore Institute of Technology (VIT) · Vellore, Tamil Nadu, India</div>
+        <span class="edu-badge">🟢 In Progress</span>
+      </div>
+      <div class="edu-card reveal" style="transition-delay:.1s">
+        <div class="edu-year">Aug 2019 – Jun 2023</div>
+        <div class="edu-degree">B.Tech — Computer Science &amp; Engineering</div>
+        <div class="edu-field">Computer Science &amp; Engineering</div>
+        <div class="edu-school">Sri Chandrasekharendra Saraswathi Vishwa Mahavidyalaya (SCSVMV) · Kanchipuram, Tamil Nadu, India</div>
+        <span class="edu-badge">✅ Completed</span>
+      </div>
+    </div>
   </div>
 </section>
 </div>
@@ -884,15 +1023,18 @@ footer a:hover { opacity: .75; }
         </div>
       </div>
       <div class="reveal" style="transition-delay:.1s">
-        <form class="cform" action="https://formspree.io/f/xpqorykw" method="POST">
-  <div class="cf-row">
-    <div class="cf"><label>Name</label><input type="text" name="name" placeholder="Your name" required/></div>
-    <div class="cf"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+        <div class="cform">
+          <div class="cf-row">
+            <div class="cf"><label>Name</label><input type="text" placeholder="Your name"/></div>
+            <div class="cf"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+          </div>
+          <div class="cf"><label>Subject</label><input type="text" placeholder="Role, collaboration, project..."/></div>
+          <div class="cf"><label>Message</label><textarea rows="5" placeholder="Tell me about the opportunity..."></textarea></div>
+          <button class="cf-send">Send Message →</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="cf"><label>Subject</label><input type="text" name="subject" placeholder="Role, collaboration, project..." required/></div>
-  <div class="cf"><label>Message</label><textarea name="message" rows="5" placeholder="Tell me about the opportunity..." required></textarea></div>
-  <button type="submit" class="cf-send">Send Message →</button>
-</form>
 </section>
 
 <!-- ══ FOOTER ══ -->
@@ -907,181 +1049,6 @@ footer a:hover { opacity: .75; }
 </footer>
 
 <script>
-/* ══ LOAD DATA.JSON & RENDER ALL SECTIONS ══ */
-async function loadData() {
-  let d;
-  try {
-    const res = await fetch('data.json?v=' + Date.now());
-    d = await res.json();
-  } catch(e) {
-    console.error('Failed to load data.json:', e);
-    return;
-  }
-
-  const m = d.meta;
-
-  /* ── Hero description ── */
-  if (m && document.getElementById('hero-desc')) {
-    document.getElementById('hero-desc').innerHTML = m.hero_desc;
-  }
-
-  /* ── Hero stats ── */
-  if (d.stats && document.getElementById('hero-stats')) {
-    document.getElementById('hero-stats').innerHTML = d.stats.map(s =>
-      `<div class="hstat"><div class="hstat-val">${s.value}</div><div class="hstat-lbl">${s.label}<br/><span style="font-size:.7rem;opacity:.7">${s.sub}</span></div></div>`
-    ).join('');
-  }
-
-  /* ── About stats ── */
-  if (d.stats && document.getElementById('about-stats')) {
-    document.getElementById('about-stats').innerHTML = d.stats.map(s =>
-      `<div class="astat"><div class="astat-val">${s.value}</div><div class="astat-lbl">${s.sub}</div></div>`
-    ).join('');
-  }
-
-  /* ── Experience cards ── */
-  if (d.experience && document.getElementById('exp-cards')) {
-    const expLogos = {
-      'Walmart Global Tech India': `<div class="exp-logo walmart"><img src="images/wakamrt_logo-removebg-preview.png" alt="Walmart Logo"/></div>`,
-      'Wenger & Watson Private Limited': `<div class="exp-logo ww"><img src="images/WW-removebg-preview.png" alt="Wenger and Watson Logo"/></div>`
-    };
-    document.getElementById('exp-cards').innerHTML = d.experience.map((e, i) => {
-      const logo = expLogos[e.company] || `<div class="exp-logo"><div style="font-size:1.4rem;font-weight:700;color:var(--purple2)">${e.company[0]}</div></div>`;
-      const badge = e.badge ? ` <span class="exp-badge">${e.badge}</span>` : '';
-      const bullets = e.bullets.map(b => `<li>${b}</li>`).join('');
-      const tags = e.tags.map((t,ti) => `<span class="etag${ti>3?' grey':''}">${t}</span>`).join('');
-      return `
-      <div class="exp-card">
-        ${logo}
-        <div>
-          <div class="exp-header">
-            <div>
-              <div class="exp-co">${e.company}${badge}</div>
-              <div class="exp-role">${e.role}</div>
-            </div>
-            <div class="exp-meta">
-              <span class="exp-period">${e.period}</span>
-              <span class="exp-loc">📍 ${e.location}</span>
-            </div>
-          </div>
-          <div class="exp-details">
-            <ul class="exp-bullets">${bullets}</ul>
-            <div class="exp-tags" style="margin-top:1rem">${tags}</div>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
-  }
-
-  /* ── Projects ── */
-  if (d.projects && document.getElementById('proj-cards')) {
-    const coreSet = new Set(d.core_skills || []);
-    // First project is "featured", rest are standard cards
-    document.getElementById('proj-cards').innerHTML = d.projects.map((p, i) => {
-      const isFeatured = i === 0;
-      const githubHref = p.github_repo || 'https://github.com/GiridharReddy-T/';
-      const bullets = p.bullets.map(b => `<li>${b}</li>`).join('');
-      const ptags = p.tags.map(t => `<span class="stag${coreSet.has(t) ? ' hi' : ''}">${t}</span>`).join('');
-      const badgeTags = p.tags.slice(0, 4).map(t => `<span class="pbadge">${t}</span>`).join('');
-      const titleUpper = p.title.toUpperCase().replace(/[-_]/g, ' ');
-
-      if (isFeatured) {
-        return `
-        <div class="proj-card">
-          <div class="proj-img">
-            <div class="proj-img-inner">
-              <span class="proj-emoji-big">${p.icon}</span>
-              <div class="proj-img-title">${titleUpper}</div>
-              <div class="proj-badges">${badgeTags}</div>
-            </div>
-          </div>
-          <div class="proj-body">
-            <div>
-              <div class="proj-feat-label">${p.type} · Data Engineering</div>
-              <div class="proj-title">${p.title}</div>
-              <div class="proj-desc">${p.description}</div>
-              <ul class="proj-blist">${bullets}</ul>
-            </div>
-            <div class="proj-actions">
-              <a href="${githubHref}" target="_blank" class="proj-link">View on GitHub ↗</a>
-              <div class="proj-ptags">${ptags}</div>
-            </div>
-          </div>
-        </div>`;
-      } else {
-        return `
-        <div class="proj-card" style="margin-top:2rem;transition-delay:${i*0.1}s">
-          <div class="proj-img" style="min-height:120px">
-            <div class="proj-img-inner">
-              <span class="proj-emoji-big">${p.icon}</span>
-              <div class="proj-img-title" style="font-size:.9rem">${p.title.toUpperCase()}</div>
-              <div class="proj-badges">${badgeTags}</div>
-            </div>
-          </div>
-          <div class="proj-body">
-            <div>
-              <div class="proj-feat-label">${p.type} · Data Engineering</div>
-              <div class="proj-title">${p.title}</div>
-              <div class="proj-desc">${p.description}</div>
-              <ul class="proj-blist">${bullets}</ul>
-            </div>
-            <div class="proj-actions">
-              <a href="${githubHref}" target="_blank" class="proj-link">View on GitHub ↗</a>
-              <div class="proj-ptags">${ptags}</div>
-            </div>
-          </div>
-        </div>`;
-      }
-    }).join('');
-  }
-
-  /* ── Skills grid ── */
-  if (d.skills && document.getElementById('skills-grid')) {
-    const coreSet = new Set(d.core_skills || []);
-    document.getElementById('skills-grid').innerHTML = Object.entries(d.skills).map(([cat, tags]) => {
-      const chips = tags.map(t => `<span class="stag${coreSet.has(t) ? ' hi' : ''}">${t}</span>`).join('');
-      return `<div class="sk-block"><div class="sk-cat">${cat}</div><div class="sk-tags">${chips}</div></div>`;
-    }).join('');
-  }
-
-  /* ── Certifications ── */
-  if (d.certifications && document.getElementById('certs-grid')) {
-    document.getElementById('certs-grid').innerHTML = d.certifications.map((c, i) => {
-      const expiry = c.expiry_year ? `Expires: ${c.expiry_year}` : 'No Expiry';
-      return `
-      <div class="cert-card">
-        <div class="cert-name">${c.icon} ${c.title}</div>
-        <div class="cert-issuer">${c.issuer}</div>
-        <div class="cert-year">Issued: ${c.certified_year} · ${expiry}</div>
-      </div>`;
-    }).join('');
-  }
-
-  /* ── Education ── */
-  if (d.education && document.getElementById('edu-grid')) {
-    document.getElementById('edu-grid').innerHTML = d.education.map((e, i) => {
-      const badge = e.status === 'In Progress'
-        ? `<span class="edu-badge">🟢 In Progress</span>`
-        : `<span class="edu-badge">✅ Completed</span>`;
-      return `
-      <div class="edu-card">
-        <div class="edu-year">${e.period}</div>
-        <div class="edu-degree">${e.degree}</div>
-        <div class="edu-field">${e.field}</div>
-        <div class="edu-school">${e.school} · ${e.location}</div>
-        ${badge}
-      </div>`;
-    }).join('');
-  }
-
-  /* ── Force-show all dynamically injected .reveal elements ── */
-  /* They are added after the IntersectionObserver's initial sweep,     */
-  /* so they never get .up added automatically. Force it after paint.   */
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.up)').forEach(el => el.classList.add('up'));
-  }, 80);
-}
-
 /* ══ TYPING ANIMATION ══ */
 const roles = ['Data Engineer','Data Scientist','PySpark Developer','Databricks Specialist','ETL/ELT Builder','Cloud Data Engineer'];
 let ri = 0, ci = 0, del = false;
@@ -1157,243 +1124,6 @@ document.addEventListener('mousemove', e => {
   document.body.style.setProperty('--x', e.clientX + 'px');
   document.body.style.setProperty('--y', e.clientY + 'px');
 });
-
-/* ══ DATA PIPELINE BACKGROUND ANIMATION ══ */
-(function() {
-  const canvas = document.getElementById('pipeline-bg');
-  const ctx = canvas.getContext('2d');
-
-  let W, H, nodes, edges, packets, stars;
-
-  /* ── Palette ── */
-  const COL = {
-    node:       'rgba(139,92,246,0.55)',
-    nodeGlow:   'rgba(139,92,246,0.12)',
-    nodeRing:   'rgba(139,92,246,0.18)',
-    edge:       'rgba(139,92,246,0.10)',
-    edgeHot:    'rgba(139,92,246,0.28)',
-    packet:     '#8b5cf6',
-    packetGlow: 'rgba(139,92,246,0.6)',
-    star:       'rgba(255,255,255,',
-    label:      'rgba(139,92,246,0.35)',
-  };
-
-  /* Pipeline node labels — data engineering theme */
-  const LABELS = [
-    'Kafka','Spark','Delta','Bronze','Silver','Gold',
-    'ADF','GCS','BQ','ADLS','Airflow','Hudi',
-    'ETL','CDC','ELT','Lake','Ingest','Transform'
-  ];
-
-  function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-    init();
-  }
-
-  function rand(a, b) { return a + Math.random() * (b - a); }
-  function pick(arr)   { return arr[Math.floor(Math.random() * arr.length)]; }
-
-  function init() {
-    /* ── Stars / space dust ── */
-    stars = Array.from({ length: 160 }, () => ({
-      x:  rand(0, W),
-      y:  rand(0, H),
-      r:  rand(0.2, 1.2),
-      a:  rand(0.08, 0.5),
-      tw: rand(2000, 8000),
-      t0: rand(0, 8000),
-    }));
-
-    /* ── Pipeline nodes — scattered like satellites ── */
-    const count = Math.max(9, Math.floor(W * H / 38000));
-    nodes = Array.from({ length: count }, (_, i) => ({
-      id:    i,
-      x:     rand(60, W - 60),
-      y:     rand(60, H - 60),
-      vx:    rand(-0.06, 0.06),   /* very slow drift */
-      vy:    rand(-0.04, 0.05),
-      r:     rand(3.5, 6),
-      label: pick(LABELS),
-      pulse: rand(0, Math.PI * 2),
-      pulseSpeed: rand(0.005, 0.012),
-    }));
-
-    /* ── Edges — connect nearby nodes ── */
-    edges = [];
-    const maxDist = Math.min(W, H) * 0.32;
-    for (let i = 0; i < nodes.length; i++) {
-      for (let j = i + 1; j < nodes.length; j++) {
-        const dx = nodes[i].x - nodes[j].x;
-        const dy = nodes[i].y - nodes[j].y;
-        if (Math.hypot(dx, dy) < maxDist) {
-          edges.push({ a: i, b: j });
-        }
-      }
-    }
-
-    /* ── Data packets — travel along edges ── */
-    packets = Array.from({ length: Math.min(edges.length, 18) }, () => makePacket());
-  }
-
-  function makePacket() {
-    const e = pick(edges);
-    const fwd = Math.random() > 0.5;
-    return {
-      edge:  e,
-      t:     Math.random(),         /* 0..1 position along edge */
-      speed: rand(0.0004, 0.0012),  /* very slow — satellite drift */
-      fwd:   fwd,
-      size:  rand(1.8, 3.2),
-      trail: [],
-    };
-  }
-
-  /* ── Draw helpers ── */
-  function drawStar(s, now) {
-    const phase = ((now - s.t0) % s.tw) / s.tw;
-    const alpha = s.a * (0.5 + 0.5 * Math.sin(phase * Math.PI * 2));
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = COL.star + alpha + ')';
-    ctx.fill();
-  }
-
-  function drawEdge(e) {
-    const a = nodes[e.a], b = nodes[e.b];
-    ctx.beginPath();
-    ctx.moveTo(a.x, a.y);
-    ctx.lineTo(b.x, b.y);
-    ctx.strokeStyle = COL.edge;
-    ctx.lineWidth = 0.6;
-    ctx.stroke();
-  }
-
-  function drawNode(n, now) {
-    n.pulse += n.pulseSpeed;
-    const glow = 0.5 + 0.5 * Math.sin(n.pulse);
-
-    /* outer ring pulse */
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r + 6 + glow * 4, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(139,92,246,${0.04 + glow * 0.08})`;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    /* glow halo */
-    const gr = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 5);
-    gr.addColorStop(0, `rgba(139,92,246,${0.10 + glow * 0.08})`);
-    gr.addColorStop(1, 'rgba(139,92,246,0)');
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r * 5, 0, Math.PI * 2);
-    ctx.fillStyle = gr;
-    ctx.fill();
-
-    /* core dot */
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(139,92,246,${0.45 + glow * 0.25})`;
-    ctx.fill();
-
-    /* label */
-    ctx.font = `500 9px monospace`;
-    ctx.fillStyle = COL.label;
-    ctx.textAlign = 'center';
-    ctx.fillText(n.label, n.x, n.y + n.r + 11);
-  }
-
-  function drawPacket(p) {
-    const a = nodes[p.edge.a], b = nodes[p.edge.b];
-    const t = p.fwd ? p.t : 1 - p.t;
-    const x = a.x + (b.x - a.x) * t;
-    const y = a.y + (b.y - a.y) * t;
-
-    /* save to trail */
-    p.trail.push({ x, y });
-    if (p.trail.length > 18) p.trail.shift();
-
-    /* draw trail */
-    for (let i = 0; i < p.trail.length - 1; i++) {
-      const alpha = (i / p.trail.length) * 0.45;
-      ctx.beginPath();
-      ctx.moveTo(p.trail[i].x, p.trail[i].y);
-      ctx.lineTo(p.trail[i + 1].x, p.trail[i + 1].y);
-      ctx.strokeStyle = `rgba(139,92,246,${alpha})`;
-      ctx.lineWidth = p.size * 0.6;
-      ctx.lineCap = 'round';
-      ctx.stroke();
-    }
-
-    /* glow */
-    const gr = ctx.createRadialGradient(x, y, 0, x, y, p.size * 3.5);
-    gr.addColorStop(0, 'rgba(168,85,247,0.7)');
-    gr.addColorStop(1, 'rgba(139,92,246,0)');
-    ctx.beginPath();
-    ctx.arc(x, y, p.size * 3.5, 0, Math.PI * 2);
-    ctx.fillStyle = gr;
-    ctx.fill();
-
-    /* core */
-    ctx.beginPath();
-    ctx.arc(x, y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = '#c4b5fd';
-    ctx.fill();
-  }
-
-  function update() {
-    /* drift nodes slowly, bounce off walls */
-    nodes.forEach(n => {
-      n.x += n.vx;
-      n.y += n.vy;
-      if (n.x < 40 || n.x > W - 40) { n.vx *= -1; n.x = Math.max(40, Math.min(W - 40, n.x)); }
-      if (n.y < 40 || n.y > H - 40) { n.vy *= -1; n.y = Math.max(40, Math.min(H - 40, n.y)); }
-    });
-
-    /* advance packets */
-    packets.forEach((p, i) => {
-      p.t += p.speed;
-      if (p.t >= 1) {
-        packets[i] = makePacket();
-      }
-    });
-
-    /* lazily rebuild edges when nodes have drifted (every 180 frames) */
-    update._tick = (update._tick || 0) + 1;
-    if (update._tick % 180 === 0) {
-      edges = [];
-      const maxDist = Math.min(W, H) * 0.32;
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          if (Math.hypot(dx, dy) < maxDist) edges.push({ a: i, b: j });
-        }
-      }
-    }
-  }
-
-  function draw(now) {
-    ctx.clearRect(0, 0, W, H);
-
-    stars.forEach(s => drawStar(s, now));
-    edges.forEach(e => drawEdge(e));
-    nodes.forEach(n => drawNode(n, now));
-    packets.forEach(p => drawPacket(p));
-  }
-
-  function loop(now) {
-    update();
-    draw(now);
-    requestAnimationFrame(loop);
-  }
-
-  window.addEventListener('resize', resize);
-  resize();
-  requestAnimationFrame(loop);
-})();
-
-/* ══ KICK OFF DATA LOAD ══ */
-loadData();
 </script>
 </body>
 </html>
