@@ -158,18 +158,53 @@ nav.scrolled {
   animation: fadeUp .7s ease .15s both; flex-shrink: 0;
 }
 .hero-avatar-inner {
-  width: 100%; height: 100%; border-radius: 50%;
-  background: linear-gradient(135deg, #1e1b2e, #12121e);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  
+  /* 🔥 reduce background so image is visible */
+  background: #12121e;  
+  
   border: 2.5px solid rgba(139,92,246,.5);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3.5rem; font-weight: 800; color: var(--purple2);
-  box-shadow: 0 0 0 6px rgba(139,92,246,.1), 0 0 60px rgba(139,92,246,.2);
-  position: relative; overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  position: relative;
+
+  box-shadow: 
+    0 0 0 6px rgba(139,92,246,.1), 
+    0 0 60px rgba(139,92,246,.2);
 }
 .hero-avatar-inner::after {
   content: '';
-  position: absolute; inset: 0; border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, rgba(168,85,247,.15), transparent 60%);
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 30%, 
+    rgba(168,85,247,.15), 
+    transparent 60%
+  );
+
+  z-index: 3;          /* optional glow ON TOP */
+  pointer-events: none;
+}
+.hero-avatar-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%; /* 🔥 adjust face position */
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.4s ease;
+}
+
+.hero-avatar:hover .hero-avatar-inner img {
+  transform: scale(1.05);
 }
 .avatar-ring {
   position: absolute; inset: -8px; border-radius: 50%;
